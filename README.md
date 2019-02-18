@@ -3,11 +3,7 @@
 
 ## Project setup
 ```
-# e-commerce with framework vue.js and vuetify
-
-## Project setup
-```
-git clone 
+git clone https://github.com/edikw/tukulek.com.git
 change directory to tukulek.com
 npm install
 ```
