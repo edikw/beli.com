@@ -12,43 +12,43 @@
 				</div>
 				<v-card-title>
 					<v-flex xs12 lg4 class="mr-5">
-				        <v-text-field
-				            label="Nama Penerima"
-				            required
-				            color="teal"
-				            v-model="namaPenerima"
-				            :rules="nameRules"
-				          ></v-text-field>
-					</v-flex>				        
+						<v-text-field
+							label="Nama Penerima"
+							required
+							color="teal"
+							v-model="namaPenerima"
+							:rules="nameRules"
+						></v-text-field>
+					</v-flex>                       
 					<v-flex xs12 lg4>
-			        	<v-text-field
-			            	label="No Handphone/Telepon"
-			            	required
-			            	color="teal"
-			            	v-model="noHp"
-			            	:rules="nameRules"
-			        	></v-text-field>
+						<v-text-field
+							label="No Handphone/Telepon"
+							required
+							color="teal"
+							v-model="noHp"
+							:rules="nameRules"
+						></v-text-field>
 					</v-flex>
 					<v-flex xs12 lg4>
-			        	<v-text-field
-			            	label="Email"
-			            	required
-			            	color="teal"
-			            	:rules="nameRules"
-			            	v-model="email"
-			        	></v-text-field>
+						<v-text-field
+							label="Email"
+							required
+							color="teal"
+							:rules="nameRules"
+							v-model="email"
+						></v-text-field>
 					</v-flex>
 
 					<v-flex xs12>
-				        <v-textarea
-				          name="input-7-1"
-				          label="Alamat Lengkap Dan Kode Pos"
-				          value=""
-				          color="teal"
-				          v-model="alamat"
-				          :rules="nameRules"
-				        ></v-textarea>
-				    </v-flex>
+						<v-textarea
+							name="input-7-1"
+							label="Alamat Lengkap Dan Kode Pos"
+							value=""
+							color="teal"
+							v-model="alamat"
+							:rules="nameRules"
+						></v-textarea>
+					</v-flex>
 				</v-card-title>
 			</v-card>
 			</v-flex>
@@ -92,67 +92,67 @@
 				</div>
 				<v-card-title v-if="dataBarang">
 					<v-flex xs12 sm4 md6 lg4>
-				        <v-card>
-				            <v-img :src="dataBarang.thumbnail"
-				              class="white--text"
-				               aspect-ratio="1.7"
-				            >
-				            </v-img>
-				        </v-card>
+						<v-card>
+							<v-img :src="dataBarang.thumbnail"
+								class="white--text"
+								aspect-ratio="1.7"
+							>
+							</v-img>
+						</v-card>
 					</v-flex>
-			        <v-flex xs12 sm5 lg5>
-				    	<div class="mx-2">
-					    	<h5 class="pb-2">{{dataBarang.nama_barang}}</h5>
-				    		<h5>{{dataBarang.price}}</h5>
-					    	<div>
-					    		<v-card-text class="py-0 px-0">
-						    		<v-text-field 
-						    		type="number"
-						    		min="1" 
-						    		v-model="jumlah" 
-						    		label="Jumlah Barang" 
-						    		color="teal"
-						    		:rules="nameRules"
-						    		></v-text-field>
-					    		</v-card-text>
-					    	</div>
-				    	</div>
-			        </v-flex>
+					<v-flex xs12 sm5 lg5>
+						<div class="mx-2">
+							<h5 class="pb-2">{{dataBarang.nama_barang}}</h5>
+							<h5>{{dataBarang.price}}</h5>
+							<div>
+								<v-card-text class="py-0 px-0">
+									<v-text-field 
+										type="number"
+										min="1" 
+										v-model="jumlah" 
+										label="Jumlah Barang" 
+										color="teal"
+										:rules="nameRules"
+									></v-text-field>
+								</v-card-text>
+							</div>
+						</div>
+					</v-flex>
 				</v-card-title>
 				<v-flex xs12 lg8 class="px-3">
-			        <div class="pb-3" v-if="jumlah.length > 0">
-			        	<h4>Total Harga:</h4>
-			        	<h4>Rp.{{total}}.000</h4>
-			        </div>
-			        <div>
-				        <v-textarea
-				          name="input-7-1"
-				          label="Catatan contoh: ukuran, warna dll"
-				          v-model="catatan"
-				          color="teal"
-				          :rules="nameRules"
-				        ></v-textarea>
-			        </div>
-			        <v-flex xs12 sm12 lg12 d-flex>
-				        <v-select
-				          :items="items"
-				          box
-				          label="Pilih Bank Transfer"
-				          color="teal"
-				          v-model="bank"
-				          :rules="nameRules"
-				        ></v-select>
-				    </v-flex>
-				     <v-flex xs12 sm12 lg12 d-flex>
-				        <v-select
-				          :items="kurirPaket"
-				          box
-				          label="Pilih Kurir"
-				          color="teal"
-				          v-model="kurir"
-				          :rules="nameRules"
-				        ></v-select>
-				    </v-flex>
+					<div class="pb-3" v-if="jumlah.length > 0">
+						<h4>Total Harga:</h4>
+						<h4>Rp.{{total}}.000</h4>
+					</div>
+					<div>
+						<v-textarea
+							name="input-7-1"
+							label="Catatan contoh: ukuran, warna dll"
+							v-model="catatan"
+							color="teal"
+							:rules="nameRules"
+						></v-textarea>
+					</div>
+					<v-flex xs12 sm12 lg12 d-flex>
+						<v-select
+							:items="items"
+							box
+							label="Pilih Bank Transfer"
+							color="teal"
+							v-model="bank"
+							:rules="nameRules"
+						></v-select>
+					</v-flex>
+					<v-flex xs12 sm12 lg12 d-flex>
+						<v-select
+							:items="kurirPaket"
+							box
+							label="Pilih Kurir"
+							color="teal"
+							v-model="kurir"
+							:rules="nameRules"
+						></v-select>
+					</v-flex>
 				</v-flex>
 			</v-card>
 		</v-flex>
@@ -188,27 +188,26 @@
 					<v-btn color="teal" dark block @click="bayar">Bayar</v-btn>
 				</v-card>
 			</v-flex>
-		</v-flex>
 		<v-dialog
 			v-model="dialog"
 			persistent
 			width="300"
-	    	>
-	    	<v-card
-	        	color="teal"
-	        	dark
-	        	height="100"
-	    	>
-	        	<v-card-text>
-	        		Sedang Memproses Pembelian Anda
-	        		<v-progress-linear
-	            		indeterminate
-	            		color="white"
-	            		class="mb-0"
-	        		></v-progress-linear>
-	        	</v-card-text>
-	    	</v-card>
-	    </v-dialog>
+			>
+			<v-card
+				color="teal"
+				dark
+				height="100"
+			>
+				<v-card-text>
+					Sedang Memproses Pembelian Anda
+					<v-progress-linear
+						indeterminate
+						color="white"
+						class="mb-0"
+					></v-progress-linear>
+				</v-card-text>
+			</v-card>
+		</v-dialog>
 	</v-container>
 </template>
 <script>
@@ -232,10 +231,10 @@
 				catatan: '',
 				bank:'',
 				nameRules: [
-			        v => !!v || 'Field must not be empty'
-			    ],
-			    kurir: '',
-			     dialog: false
+					v => !!v || 'Field must not be empty'
+				],
+				kurir: '',
+				dialog: false
 			}
 		},
 		mounted(){

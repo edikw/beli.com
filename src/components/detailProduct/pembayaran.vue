@@ -6,11 +6,10 @@
 					<h3 style="color: teal;">Bank Transfer</h3>
 				</div>
 				<v-flex d-flex>
-					<v-card v-for="img in images" max-width="100">
+					<v-card v-for="(img, i) in images" max-width="100" :key="i">
 						<v-img :src="img.image" aspect-ratio="1.5" contain />
 					</v-card>
 				</v-flex>
-
 			</v-flex>
 		</v-layout>
 	</v-container>

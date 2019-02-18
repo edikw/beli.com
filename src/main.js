@@ -63,9 +63,9 @@ function getProduct(){
 
 function renderApp(){
 	new Vue({
-	  router,
-	  data: () => {return data},
-	  render: h => h(App)
+		router,
+		data: () => {return data},
+		render: h => h(App)
 	}).$mount('#app')
 }
 

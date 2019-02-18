@@ -1,13 +1,12 @@
 <template>
-		<v-container class="py-0">
-			<v-layout row justify-center>
+	<v-container class="py-0">
+		<v-layout row justify-center>
 			<v-flex xs10 sm11 md12 lg12>
 				<v-tabs
 					color="teal lighten-3"
 					slider-color="teal"
 					:grow="true"
-					:centered="true"
-				>
+					:centered="true">
 					<v-tab
 						ripple
 					>
@@ -17,13 +16,20 @@
 						class="my-2"
 						color="transparent" >
 						<v-card flat v-if="product && product.length > 0">
-							<carousel :per-page-custom="[[320, 1],[480, 2], [768, 4], [1440, 5],[1441, 6]]" :paginationEnabled="false" :navigationEnabled="true" navigationNextLabel="<h1>&#8250;</h1>" navigationPrevLabel="<h1>&#8249;</h1>">
-								<slide v-for="listData in product">
+							<carousel 
+								:per-page-custom="[[320, 1],[480, 2], [768, 4], [1440, 5],[1441, 6]]" 
+								:paginationEnabled="false" 
+								:navigationEnabled="true" 
+								navigationNextLabel="<h1>&#8250;</h1>" navigationPrevLabel="<h1>&#8249;</h1>">
+								<slide v-for="(listData, i) in product" :key="i">
 									<v-card
-									class="mx-auto"
-									max-width="185"
-									>
-										<v-img :src="listData.data_barang.thumbnail" aspect-ratio="1.5" contain v-on:click="detailPage(listData)" style="cursor: pointer;">
+										class="mx-auto"
+										max-width="185">
+										<v-img 
+											:src="listData.data_barang.thumbnail" 
+											aspect-ratio="1.5" 
+											contain 
+											v-on:click="detailPage(listData)" style="cursor: pointer;">
 										</v-img>
 										<v-card-title>
 											<div>
@@ -38,7 +44,6 @@
 									</v-card>
 								</slide>
 							</carousel>
-							<!-- </v-flex> -->
 						</v-card>
 						<v-flex class=" text-xs-right text-lg-right">
 							<v-btn color="teal" dark small class="mx-0" @click="pageShowProduct">Lihat Semua</v-btn>
@@ -50,20 +55,28 @@
 					>Hot Sale
 					</v-tab>
 					<v-tab-item
-					 color="transparent">
+						color="transparent">
 						<v-card flat v-if="product && product.length > 0">
 							<v-flex
 								xs12
-								class="my-2"
-							>
-								<carousel :per-page-custom="[[320, 1],[480, 2], [768, 4], [1440, 5],[1441, 6]]" :paginationEnabled="false" :navigationEnabled="true" navigationNextLabel="<h1>&#8250;</h1>" navigationPrevLabel="<h1>&#8249;</h1>">
-									<slide v-for="listData in product">
+								class="my-2">
+								<carousel 
+									:per-page-custom="[[320, 1],[480, 2], [768, 4], [1440, 5],[1441, 6]]" 
+									:paginationEnabled="false" 
+									:navigationEnabled="true" 
+									navigationNextLabel="<h1>&#8250;</h1>" 
+									navigationPrevLabel="<h1>&#8249;</h1>">
+									<slide v-for="(listData, i) in product" :key="i">
 										<v-card
-										class="mx-auto"
-										max-width="185"
-										>
-										<v-img :src="listData.data_barang.thumbnail" aspect-ratio="1.5" contain v-on:click="detailPage(listData)" style="cursor: pointer;">
-										</v-img>
+											class="mx-auto"
+											max-width="185">
+											<v-img 
+												:src="listData.data_barang.thumbnail" 
+												aspect-ratio="1.5" 
+												contain 
+												v-on:click="detailPage(listData)" 
+												style="cursor: pointer;">
+											</v-img>
 											<v-card-title>
 												<div>
 													<h4 class="subheading mb-0">{{listData.data_barang.nama_barang}}</h4>
@@ -80,7 +93,7 @@
 							</v-flex>
 						</v-card>
 						<v-flex class="text-xs-right text-lg-right">
-								<v-btn color="teal" small dark class="mx-0" @click="pageShowProduct">Lihat Semua</v-btn>
+							<v-btn color="teal" small dark class="mx-0" @click="pageShowProduct">Lihat Semua</v-btn>
 						</v-flex>
 					</v-tab-item>
 					<v-tab
@@ -92,13 +105,23 @@
 						class="my-2"
 						color="transparent" >
 						<v-card flat v-if="product && product.length > 0">
-							<carousel :per-page-custom="[[320, 1],[480, 2], [768, 4], [1440, 5],[1441, 6]]" :paginationEnabled="false" :navigationEnabled="true" navigationNextLabel="<h1>&#8250;</h1>" navigationPrevLabel="<h1>&#8249;</h1>">
-								<slide v-for="listData in product">
+							<carousel 
+								:per-page-custom="[[320, 1],[480, 2], [768, 4], [1440, 5],[1441, 6]]" 
+								:paginationEnabled="false" 
+								:navigationEnabled="true" 
+								navigationNextLabel="<h1>&#8250;</h1>" 
+								navigationPrevLabel="<h1>&#8249;</h1>">
+								<slide v-for="(listData, i) in product" :key="i">
 									<v-card
-									class="mx-auto"
-									max-width="185"
+										class="mx-auto"
+										max-width="185"
 									>
-										<v-img :src="listData.data_barang.thumbnail" aspect-ratio="1.5" contain v-on:click="detailPage(listData)" style="cursor: pointer;">
+										<v-img 
+											:src="listData.data_barang.thumbnail" 
+											aspect-ratio="1.5" 
+											contain 
+											v-on:click="detailPage(listData)" 
+											style="cursor: pointer;">
 										</v-img>
 										<v-card-title>
 											<div>
@@ -113,75 +136,73 @@
 									</v-card>
 								</slide>
 							</carousel>
-							<!-- </v-flex> -->
 						</v-card>
 						<v-flex class="text-xs-right text-lg-right">
 							<v-btn color="teal" dark small class="mx-0" @click="pageShowProduct">Lihat Semua</v-btn>
 						</v-flex>
 					</v-tab-item>
-
 				</v-tabs>
 			</v-flex>
 		</v-layout>
-		</v-container>
+	</v-container>
 </template>
 <script>
 	import App from '../../App';
 	import { Carousel, Slide } from 'vue-carousel';
-export default {
-	components: {
-		Carousel,
-		Slide
-	},
-	data() {
-		return {
-			product: null,
-			urlAddChart: App.data().url.urlCartId,
-		}
-	},
-	mounted(){
-		this.product = this.$router.app.product
-	},
-	methods: {
-		pageShowProduct(){
-			this.$router.push({
-				name:'show-product',
-				path: '/product'
-			});
+	export default {
+		components: {
+			Carousel,
+			Slide
 		},
-		showcart(e){
-			var self = this;
-			var idUser = localStorage.getItem('id');
-			var dataBarang = {
-				id_pembeli : idUser,
-				id_barang : e.id
-			}
-			
-			if(!localStorage.getItem('token')){
-				this.$root.$emit('addCartShow', e)
-			}else {
-
-				App.methods.postData(this.urlAddChart + idUser, dataBarang, function(res){
-					if(res.status == 200){
-						alert('Menambahkan Ke Keranjang Belanja')
-						self.$root.$emit('addCart', self.countCart)
-						
-					}
-
-				});
+		data() {
+			return {
+				product: null,
+				urlAddChart: App.data().url.urlCartId,
 			}
 		},
-		detailPage(e){
-			if(this.$route.name != 'detail'){
+		mounted(){
+			this.product = this.$router.app.product
+		},
+		methods: {
+			pageShowProduct(){
 				this.$router.push({
-					name: 'detail',
-					path: '/detail-product',
-					params: {name: e.id}
+					name:'show-product',
+					path: '/product'
 				});
+			},
+			showcart(e){
+				var self = this;
+				var idUser = localStorage.getItem('id');
+				var dataBarang = {
+					id_pembeli : idUser,
+					id_barang : e.id
+				}
+				
+				if(!localStorage.getItem('token')){
+					this.$root.$emit('addCartShow', e)
+				}else {
+
+					App.methods.postData(this.urlAddChart + idUser, dataBarang, function(res){
+						if(res.status == 200){
+							alert('Menambahkan Ke Keranjang Belanja')
+							self.$root.$emit('addCart', self.countCart)
+							
+						}
+
+					});
+				}
+			},
+			detailPage(e){
+				if(this.$route.name != 'detail'){
+					this.$router.push({
+						name: 'detail',
+						path: '/detail-product',
+						params: {name: e.id}
+					});
+				}
 			}
 		}
-	}
-};
+	};
 </script>
 <style scoped>
 	.poto{

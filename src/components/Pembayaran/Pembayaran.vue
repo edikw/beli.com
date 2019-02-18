@@ -7,22 +7,22 @@
 						<div class="pa-3" style="background-color: #eee;">
 							<h3 style="font-weight: normal;">Detail Pembeli</h3>
 						</div>
-						<v-card-title v-if="dataPembeli && dataBarang">
+						<v-card-title v-if="(dataPembeli, i) && dataBarang" :key="i">
 							<v-flex xs12 lg12>
 								<div class="pb-2">
-							    	<h5>Nama Penerima</h5>
-							        <span>{{dataPembeli.nama_penerima}}</span>
+									<h5>Nama Penerima</h5>
+									<span>{{dataPembeli.nama_penerima}}</span>
 								</div>
 								<div class="pb-2">
-							    	<h5>No Handphone</h5>
+									<h5>No Handphone</h5>
 									<span>{{dataPembeli.no_handphone}}</span>
 								</div>
 								<div class="pb-2">
-							    	<h5>Email</h5>
+									<h5>Email</h5>
 									<span>{{dataPembeli.email}}</span>
 								</div>
 								<div class="pb-2">
-							    	<h5>Alamat</h5>
+									<h5>Alamat</h5>
 									<span>{{dataPembeli.alamat_penerima}}</span>
 								</div>
 								<div class="pb-2">
@@ -100,32 +100,31 @@
 			</v-flex>
 		<template>
 			<div class="text-xs-center">
-		    	<v-dialog
-		      	v-model="dialog"
-		     	width="500"
-		    	>
-		    		<v-card>
-		        		<v-card-title class="grey lighten-5">
-		        			<h2 style="font-weight: normal;">Upload Bukti Transfer</h2>
-		        			<h5 style="font-weight: normal;">*Pastikan Bukti Pembayaran Anda Sudah Benar</h5>
-		        		</v-card-title>
-					        <v-card-text class="pa-0">
-					        	
-					        	<v-img :src="image"></v-img>
-					        </v-card-text>
-					        <v-divider></v-divider>
+				<v-dialog
+					v-model="dialog"
+					width="500"
+				>
+					<v-card>
+						<v-card-title class="grey lighten-5">
+							<h2 style="font-weight: normal;">Upload Bukti Transfer</h2>
+							<h5 style="font-weight: normal;">*Pastikan Bukti Pembayaran Anda Sudah Benar</h5>
+						</v-card-title>
+							<v-card-text class="pa-0">
+								<v-img :src="image"></v-img>
+							</v-card-text>
+							<v-divider></v-divider>
 
-				        <v-card-actions class="pa-3">
-					        <v-btn block @click="dialog = false">Batal</v-btn>
-					        <v-btn
-					            color="teal lighten-3"
-					            block
-					        >
-					        	Kirim
-					        </v-btn>
-				        </v-card-actions>
-			    	</v-card>
-		    	</v-dialog>
+						<v-card-actions class="pa-3">
+							<v-btn block @click="dialog = false">Batal</v-btn>
+							<v-btn
+								color="teal lighten-3"
+								block
+							>
+								Kirim
+							</v-btn>
+						</v-card-actions>
+					</v-card>
+				</v-dialog>
 			</div>
 		</template>
 	</v-container>

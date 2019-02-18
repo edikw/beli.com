@@ -4,46 +4,48 @@
 		<v-divider></v-divider>
 	</div>
 	<v-container class=py-0 d-flex>
-	    <v-flex xs12 sm9 lg10 align-end justify-end class="border py-4">
-	          <v-layout row wrap>
-	            <div
-	              v-for="data in product"
-
-	            >
-	              <v-card class="ma-1" max-width="185">
-	                <v-img
-	                  :src="data.data_barang.thumbnail"
-	                  aspect-ratio="1.5" contain v-on:click="detailPage(data)" style="cursor: pointer;"
-	                ></v-img>
-	                <v-card-title>
-						<div>
-							<h4 class="subheading mb-0">
-								{{data.data_barang.nama_barang}}
-							</h4>
-							<h4>{{data.data_barang.price}}</h4>
+		<v-flex xs12 sm9 lg10 align-end justify-end class="border py-4">
+			<v-layout row wrap>
+				<div
+					v-for="(data, i) in product" 
+					:key="i">
+					<v-card class="ma-1" max-width="185">
+						<v-img
+							:src="data.data_barang.thumbnail"
+							aspect-ratio="1.5" 
+							contain 
+							v-on:click="detailPage(data)" 
+							style="cursor: pointer;"
+						></v-img>
+						<v-card-title>
 							<div>
-								<v-btn class="mx-0 mt-3" outline color="teal lighten -3" @click="showcart(data)">
-								<v-icon>shopping_cart</v-icon>Add To Cart</v-btn>
+								<h4 class="subheading mb-0">
+									{{data.data_barang.nama_barang}}
+								</h4>
+								<h4>{{data.data_barang.price}}</h4>
+								<div>
+									<v-btn class="mx-0 mt-3" outline color="teal lighten -3" @click="showcart(data)">
+									<v-icon>shopping_cart</v-icon>Add To Cart</v-btn>
+								</div>
 							</div>
-						</div>
-					</v-card-title>
-	              </v-card>
-	            </div>
-	          </v-layout>
-	    </v-flex>
-	    <v-flex lg2>
-	    	<div class="py-3 detail">
-		    	<span>Cari Lebih Detail</span>
-	    	</div>
-	    	<div class="mx-3 py-3 listKategori">
-	    		<span class="font-weight-bold">Kategori</span>
-		    	<div class="kategori">
-		    		<ul v-for="cat in category">
-		    			<li class="pa-1">{{cat.title}}</li>
-		    		</ul>
-		    	</div>
-	    	</div>
-	    </v-flex>
+						</v-card-title>
+					</v-card>
+				</div>
+			</v-layout>
+		</v-flex>
+		<v-flex lg2>
+			<div class="py-3 detail">
+				<span>Cari Lebih Detail</span>
+			</div>
+			<div class="mx-3 py-3 listKategori">
+				<span class="font-weight-bold">Kategori</span>
+				<div class="kategori">
+					<ul v-for="(cat, i) in category" :key="i">
+						<li class="pa-1">{{cat.title}}</li>
+					</ul>
+				</div>
+			</div>
+		</v-flex>
 </v-container>
 </v-container>
 </template>
