@@ -548,6 +548,8 @@ export default {
 		}
 	},
 	mounted(){
+		// eslint-disable-next-line
+		 /* eslint-disable */
 		var self = this;
 
 		if(localStorage.getItem('token')){
