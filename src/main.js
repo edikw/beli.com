@@ -11,7 +11,6 @@ import VueCarousel from 'vue-carousel';
  
  
 Vue.use(VueCarousel,VueAxios, axios);
-useEslint: false
 
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
