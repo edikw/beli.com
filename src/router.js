@@ -7,6 +7,7 @@ import ShowProduct from './views/ShowProduct.vue'
 import Pembayaran from './views/Pembayaran.vue'
 import Pembelian from './views/Pembelian.vue'
 import Profile from './views/Profile.vue'
+import History from './views/History.vue'
  
 Vue.use(Router)
 
@@ -48,6 +49,11 @@ const router =  new Router({
       path: '/profile/:idUser',
       name: 'profile',
       component: Profile
+    },
+    {
+      path: '/histori-pesanan/:idUser',
+      name: 'history',
+      component: History
     }
   ]
 });

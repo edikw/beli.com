@@ -33,8 +33,8 @@
 						</div>
 					</div>
 					<div>
-						<v-btn small color="teal" dark @click="bayar(item)">Bayar</v-btn>
-						<v-btn outline small color="teal" dark @click="hapus">Hapus</v-btn>
+						<v-btn small color="teal" dark @click="bayar(item)">Beli</v-btn>
+						<v-btn outline small color="teal" dark>Hapus</v-btn>
 					</div>
 				</div>
 			</v-flex>
@@ -65,7 +65,6 @@
 				var idUser = localStorage.getItem('id');
 				App.methods.getData(this.urlGetCartId + idUser, function(res){
 					self.dataCart = res.data.result
-					console.log(res)
 				})
 			},
 			bayar(e){

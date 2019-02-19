@@ -2,7 +2,7 @@
 	<v-container>
 		<v-layout color="transparent" row justify-center>
 			<v-flex xs10 md12 lg12>
-				<p class="text-lg-left subheading pt-4 font-weight-bold" style="color: teal;">Produk terkait</p>
+				<p class="text-lg-left subheading py-4 ma-0 font-weight-bold" style="color: teal;">Produk terkait</p>
 				<v-container fluid grid-list-lg class="px-0 py-0">
 					<v-layout>
 						<v-flex xs12 lg12>

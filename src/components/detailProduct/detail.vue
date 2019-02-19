@@ -4,7 +4,7 @@
 			<h2>Detail Produk</h2>
 		</div>
 		<v-layout row wrap justify-center>
-			<v-flex xs12 sm5 md8 lg5 class="d-inline-block">
+			<v-flex xs12 sm5 md5 lg5 class="d-inline-block">
 				<v-card>
 					<v-img
 						class="white--text"
@@ -14,11 +14,11 @@
 					</v-img>
 				</v-card>
 			</v-flex>
-			<v-flex xs12 sm7 lg7 class="d-inline-block">
-				<div class="mx-4">
+			<v-flex xs12 sm7 lg7>
+				<div class="ma-2">
 					<div class="mb-4">
 						<div class="mb-2">
-							<h1>{{dataProduct.nama_barang}}</h1>
+							<h2 class="detail">{{dataProduct.nama_barang}}</h2>
 						</div>
 						<div class="mb-2 d-inline-flex align-center">
 							<div class="">
@@ -31,26 +31,21 @@
 					</div>
 
 					<div class="mb-2">
-						<h5>Harga</h5>
-						<h1>{{dataProduct.price}}</h1>
+						<h5 class="detail">Harga</h5>
+						<h2 class="detail">{{dataProduct.price}}</h2>
 					</div>
 					<div class="mb-2">
-						<h5>Stock</h5>
-						<h2 v-if="dataProduct.stock == 0">Barang Habis</h2>
-						<h2 v-else>{{dataProduct.stock}} Barang</h2>
+						<h5 class="detail">Stock</h5>
+						<h2 class="detail" v-if="dataProduct.stock == 0">Barang Habis</h2>
+						<h2 class="detail" v-else>{{dataProduct.stock}} Barang</h2>
 					</div>
-					<div>
-						<v-card-text class="py-0 px-0">
-							<v-text-field type="number" min="1" label="Masukkan Jumlah Barang" color="teal"></v-text-field>
-						</v-card-text>
-					</div>
-					<div class="d-flex justify-center">
+					<v-flex d-flex xs12 sm12 lg3 class="ml-auto">
 						<v-btn color="teal" dark @click="buy(dataProduct)">Beli Sekarang</v-btn>
-
+					</v-flex>
+					<v-flex d-flex xs12 sm12 lg3 class="ml-auto">
 						<v-btn color="teal lighten -3" dark @click="showcart(dataProduct)">
 						<v-icon>shopping_cart</v-icon>Add To Cart</v-btn>
-					</div>
-					
+					</v-flex>
 				</div>
 			</v-flex>
 		</v-layout>
@@ -66,7 +61,8 @@
 				img: require('../../assets/cloting1.jpg'),
 				data: null,
 				urlProductId: App.data().url.urlProductId,
-				dataProduct: []
+				dataProduct: [],
+				urlAddChart: App.data().url.urlCartId
 			}
 		},
 		mounted(){
@@ -98,13 +94,33 @@
 				});
 			},
 			showcart(e){
+				var self = this;
+
+				var idUser = localStorage.getItem('id');
+				var dataBarang = {
+					id_barang : this.data
+				}
+
 				if(!localStorage.getItem('token')){
 					this.$root.$emit('addCartShowPopular', e)
+				}else {
+					App.methods.postData(this.urlAddChart + idUser, dataBarang, function(res){
+						if(res.status == 200){
+							alert('Menambahkan Ke Keranjang Belanja')
+							self.$root.$emit('addCart', self.countCart)
+						}else {
+							alert('Barang sudah ada di Keranjang yuk lanjutkan untuk pembelian')
+						}
+
+					});
 				}
 			}
 		}
 	}
 </script>
 <style scoped>
+	.detail {
+		font-weight: normal;
+	}
 
 </style>

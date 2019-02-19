@@ -251,7 +251,6 @@
 			bayar(){
 				var self = this;
 
-
 				var idUser = localStorage.getItem('id');
 				if(this.namaPenerima !='' &&
 					this.noHp !='' &&
@@ -277,16 +276,11 @@
 						nama_penerima: this.namaPenerima
 
 					}
-					console.log("YANG DIKIRM", dataPembeli);
 
 					App.methods.postData(this.urlPostPembayaran + idUser, dataPembeli, function(res){
 						if(res.status == 200){
-
 							var id_transaksi = res.data.id_transaksi
-							console.log('HASIL POST',res);
-
 							self.dialog = false;
-
 							self.$router.push({
 								name: 'pembayaran',
 								path: '/pembayaran/',
@@ -299,7 +293,7 @@
 
 
 				}else {
-					alert('ISI DONG')
+					alert('Pastikan kamu sudah mengisi data dengan benar')
 					this.dialog = false;
 				}
 			},
@@ -308,7 +302,6 @@
 
 				App.methods.getData(this.urlGetBarangId + this.idBarang, function(res){
 					self.dataBarang = res.data.result
-					console.log(self.dataBarang.price);
 				});
 			}
 		},
@@ -317,7 +310,6 @@
 				var self = this;
 				if(self.dataBarang){
 					var price = self.dataBarang.price.slice(3)
-					console.log(price)
 				}
 				self.jumlah = val
 				self.total = val * price

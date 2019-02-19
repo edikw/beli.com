@@ -30,7 +30,7 @@
 						</v-list-tile>
 					</v-list>
 				</v-menu>
-				<v-layout class="justify-center">
+				<v-layout class="justify-center hidden-xs-only">
 					<v-flex xs8 lg12>
 						<v-text-field
 							class="m-0 pt-0"
@@ -41,8 +41,7 @@
 						</v-text-field>
 					</v-flex>
 				</v-layout>
-
-				<v-layout align-center justify-center class="hidden-sm-and-down">
+				<v-layout align-center justify-end>
 					<v-menu offset-y>
 						<v-badge left color="teal" slot="activator" v-if ="!avatarLogin">
 							<span slot="badge">0</span>
@@ -120,6 +119,7 @@
 										</v-list-tile-content>
 									</v-list-tile>
 									<v-list-tile
+										v-on:click="pageKeranjang"
 									>
 										<v-icon color="teal">shopping_cart</v-icon>
 										<v-list-tile-content class="ml-2">
@@ -128,6 +128,7 @@
 									</v-list-tile>
 
 									<v-list-tile
+										v-on:click = "pageHistory"
 									>
 										<v-icon color="teal">history</v-icon>
 										<v-list-tile-content class="ml-2">
@@ -170,7 +171,11 @@
 								<h1>tukuLek.com</h1>
 							</div>
 							<v-card-title class="py-0 px-0" style="justify-content: center;">
-								<span class="headline text-center">Login</span>
+								<div class="text-center">
+									<span class="headline text-center py-2">Login</span><br>
+									<span class="pa-2" style="color: red;" v-if="loginGagal">Email atau Password yang anda masukkan salah</span>
+
+								</div>
 							</v-card-title>
 							<v-card-text>
 								<v-container grid-list py-0>
@@ -189,7 +194,6 @@
 												:type="show2 ? 'password' : 'text'"
 												name="input-10-2"
 												label="Password"
-												hint="At least 8 characters"
 												class="input-group--focused"
 												color="teal"
 												v-model="passwordLogin"
@@ -326,7 +330,7 @@
 							<v-icon color="teal lighten-3">account_circle</v-icon>
 						</v-list-tile-action>
 
-						<v-list-tile-content>
+						<v-list-tile-content v-on:click="profile">
 							<v-list-tile-title>Profile</v-list-tile-title>
 						</v-list-tile-content>
 					</v-list-tile>
@@ -336,12 +340,13 @@
 							<v-icon color="teal lighten-3">shopping_cart</v-icon>
 						</v-list-tile-action>
 
-						<v-list-tile-content>
+						<v-list-tile-content v-on:click="pageKeranjang">
 							<v-list-tile-title>Keranjang</v-list-tile-title>
 						</v-list-tile-content>
 					</v-list-tile>
 
 					<v-list-tile
+						v-on:click="pageHistory"
 					>
 						<v-list-tile-action>
 							<v-icon color="teal lighten-3">history</v-icon>
@@ -366,7 +371,7 @@
 					<v-list-tile
 					>
 						<v-list-tile-action>
-							<v-icon color="teal lighten-3">settings</v-icon>
+							<v-icon color="red darken-3">logout</v-icon>
 						</v-list-tile-action>
 
 						<v-list-tile-content v-on:click="logout">
@@ -393,42 +398,46 @@
 
 		<router-view :key="$route.fullPath" />
 
-		<v-card flat class="hidden-md-and-up">
+		<v-card flat class="hidden-md-and-up" style="overflow: hidden; position: fixed; bottom: 0; width: 100%;">
 			<v-bottom-nav
 				:value="true"
 				color="transparent"
 			>
 				<v-btn
-					color="purple"
+					color="teal"
 					flat
 					value="home"
+					to="/"
 				>
 					<span>Home</span>
 					<v-icon>home</v-icon>
 				</v-btn>
 
 				<v-btn
-					color="purple"
+					color="teal"
 					flat
 					value="pesanan"
+					@click="pageHistory"
 				>
 					<span>Pesanan</span>
 					<v-icon>history</v-icon>
 				</v-btn>
 
 				<v-btn
-					color="purple"
+					color="teal"
 					flat
 					value="keranjang"
+					@click='pageKeranjang'
 				>
 					<span>Keranjang</span>
 					<v-icon>shopping_cart</v-icon>
 				</v-btn>
 
 				<v-btn
-					color="purple"
+					color="teal"
 					flat
 					value="akun"
+					@click="profile"
 				>
 					<span>Akun</span>
 					<v-icon>account_circle</v-icon>
@@ -483,7 +492,8 @@
 		urlCartId: urlApi + 'user/chart/',
 		urlGetCartId: urlApi + 'chart/user/',
 		urlPostPembayaran: urlApi + 'user/transaksi/',
-		urlGetIdTransaksi: urlApi + 'transaksi/'
+		urlGetIdTransaksi: urlApi + 'transaksi/',
+		urlgetUserTransaksiId: urlApi + 'user/transaksi/'
 	}
 
 	export default {
@@ -545,7 +555,8 @@
 				logingIn: false,
 				mendaftar: false,
 				jumlahCart: [],
-				dataUser: []
+				dataUser: [],
+				loginGagal: false
 			}
 		},
 		mounted(){
@@ -574,6 +585,14 @@
 			})
 		},
 		methods: {
+			pageHistory(){
+				var id = localStorage.getItem('id')
+				this.$router.push({
+					name:'history',
+					path: '/histori-pesanan',
+					params: {idUser: id}
+				})
+			},
 			profile(){
 				var id = localStorage.getItem('id')
 				this.$router.push({
@@ -615,6 +634,7 @@
 					}
 					axios.post(this.url.urlLogin, dataLogin).then(res => {
 						if(res.status == 200){
+							this.loginGagal = false;
 							this.logingIn = false;
 							localStorage.setItem('id', res.data.id)
 							localStorage.setItem('token', res.data.token);
@@ -623,9 +643,11 @@
 
 						}else {
 							this.logingIn = false;
+							this.loginGagal = true;
 						}
 					}).catch(e => {
 						this.logingIn = false;
+						this.loginGagal = true;
 					})
 				}
 			},

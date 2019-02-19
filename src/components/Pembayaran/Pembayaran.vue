@@ -7,7 +7,7 @@
 						<div class="pa-3" style="background-color: #eee;">
 							<h3 style="font-weight: normal;">Detail Pembeli</h3>
 						</div>
-						<v-card-title v-if="(dataPembeli, i) && dataBarang" :key="i">
+						<v-card-title v-if="dataPembeli && dataBarang">
 							<v-flex xs12 lg12>
 								<div class="pb-2">
 									<h5>Nama Penerima</h5>
@@ -110,7 +110,9 @@
 							<h5 style="font-weight: normal;">*Pastikan Bukti Pembayaran Anda Sudah Benar</h5>
 						</v-card-title>
 							<v-card-text class="pa-0">
-								<v-img :src="image"></v-img>
+								<input type="file" name="upload" id="workIMG" @click="onFilePicked">
+								<v-img v-bind:src="image"  @click="openUpload"></v-img>
+								<!-- <v-img :src="image"></v-img> -->
 							</v-card-text>
 							<v-divider></v-divider>
 
@@ -172,6 +174,32 @@
 					self.dataBarang = res.data.result;
 				})
 
+			},
+			openUpload() {
+				document.getElementById("workIMG").click()
+			},
+			onFilePicked(event) {
+				var self = this
+				const image = event.target.files[0];
+				console.log(event)
+
+				// let data = new FormData();
+				// data.append('images', image);
+
+				// let request = new XMLHttpRequest();
+				// request.open('POST', this.ourworkPostFile);
+				// request.send(data);
+				// request.onreadystatechange = function () {
+				// 	if(request.readyState === 4 && request.status === 200) {
+				// 		var res = JSON.parse(request.responseText);
+				// 		res.uploaded_image.map(data => {
+				// 			self.addWork = data.size.medium
+							
+				// 		})
+				// 		self.proses = true;
+				// 		console.log('RES POST IMAGE', self.addWork);
+				// 	}
+				// }
 			}
 		}
 	}
@@ -184,5 +212,12 @@
 	span {
 		font-size: 12px;
 		font-weight: normal;
+	}
+	input[type=file] {
+		display: none;
+	}
+	img {
+		width: 35%;
+		border-radius: 15px; 
 	}
 </style>
