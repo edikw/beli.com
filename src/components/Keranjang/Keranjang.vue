@@ -2,8 +2,8 @@
 	<v-container>
 		<div class="pb-5">
 			<h2>Keranjang Belanja</h2>
-			<h5 v-if="dataCart.length == 0">Keranjang Belanja Anda Kosong yuk cari Barang mu dan temukan potongan harga yang menarik</h5>
-			<h5 style="font-weight: normal;" v-else>Anda Memiliki {{dataCart.length}} Barang Belanja yang Belum di bayar</h5>
+			<h5 style="font-weight: normal;" v-if="dataCart.length >0" >Anda Memiliki {{dataCart.length}} Barang Belanja yang Belum di bayar</h5>
+			<h5 v-else style="font-weight: normal;">Keranjang Belanja Anda Kosong yuk cari Barang mu dan temukan potongan harga yang menarik</h5>
 		</div>
 		<v-layout row wrap justify-start v-for="(item, i) in dataCart" class="py-2" :key="i">
 			<v-flex xs12 sm4 md6 lg3>

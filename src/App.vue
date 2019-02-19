@@ -7,12 +7,12 @@
 				<v-flex xs2 align-self-center>
 					<router-link to ="/" class="logoNavbar hidden-sm-and-down">
 						<div class="text-center">
-							<h1>tukuLek.com</h1>
+							<h1>Beli.com</h1>
 						</div>
 					</router-link>
 					<router-link to="/" class="logoNavbar hidden-md-and-up">
-						<div class="text-center logoSmall">
-							<h1>tL</h1>
+						<div class="text-center">
+							<h1>Beli.com</h1>
 						</div>
 					</router-link>
 				</v-flex>
@@ -168,7 +168,7 @@
 						>Login</v-btn>
 						<v-card>
 							<div class="text-center py-4 logo">
-								<h1>tukuLek.com</h1>
+								<h1>Beli.com</h1>
 							</div>
 							<v-card-title class="py-0 px-0" style="justify-content: center;">
 								<div class="text-center">
@@ -230,7 +230,7 @@
 						</v-btn>
 						<v-card>
 							<div class="text-center py-4 logo">
-								<h1>tukuLek.com</h1>
+								<h1>Beli.com</h1>
 							</div>
 							<v-card-title class="py-0 px-0" style="justify-content: center;">
 								<span class="headline text-center">Daftar</span>
@@ -585,21 +585,43 @@
 			})
 		},
 		methods: {
+			pageAkun(){
+				var id = localStorage.getItem('id')
+				
+				if(localStorage.getItem('token')){
+					this.$router.push({
+						name:'profile',
+						path: '/profile',
+						params: {idUser: id}
+					})
+				}else {
+					this.createLogin();
+				}
+			},
 			pageHistory(){
 				var id = localStorage.getItem('id')
-				this.$router.push({
-					name:'history',
-					path: '/histori-pesanan',
-					params: {idUser: id}
-				})
+				
+				if(localStorage.getItem('token')){
+					this.$router.push({
+						name:'history',
+						path: '/histori-pesanan',
+						params: {idUser: id}
+					})
+				}else {
+					this.createLogin();
+				}
 			},
 			profile(){
 				var id = localStorage.getItem('id')
-				this.$router.push({
-					name: 'profile',
-					path: '/profile/',
-					params: {idUser: id}
-				});
+				if(localStorage.getItem('token')){
+					this.$router.push({
+						name: 'profile',
+						path: '/profile/',
+						params: {idUser: id}
+					});
+				}else {
+					this.createLogin();
+				}
 			},
 			register(){
 				if(this.username !='' && this.email != '' && this.password != '') {

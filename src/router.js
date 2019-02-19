@@ -11,6 +11,13 @@ import History from './views/History.vue'
  
 Vue.use(Router)
 
+var sitename = 'Beli';
+
+function sitetitle(route){
+  return sitename + ' - ' + route;
+
+}
+
 const router =  new Router({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -18,44 +25,88 @@ const router =  new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
+      meta: {
+        title: sitetitle('Home')
+      }
     },
     {
       path: '/detail-product/:name',
       name: 'detail',
-      component: DetailProduct
+      component: DetailProduct,
+      meta: {
+        title: sitetitle('Detail-Produk')
+      }
     },
     {
       path: '/keranjang/:idUser',
       name: 'keranjang',
-      component: Keranjang
+      component: Keranjang,
+      meta: {
+        title: sitetitle('Keranjang')
+      }
     },
     {
       path: '/product',
       name: 'show-product',
-      component: ShowProduct
+      component: ShowProduct,
+      meta: {
+        title: sitetitle('Produk')
+      }
     },
     {
       path: '/pembelian/:idBarang',
       name: 'pembelian',
-      component: Pembelian
+      component: Pembelian,
+      meta: {
+        title: sitetitle('Pembelian')
+      }
     },
     {
       path: '/pembayaran/:idTransaksi',
       name: 'pembayaran',
-      component: Pembayaran
+      component: Pembayaran,
+      meta: {
+        title: sitetitle('Pembayaran')
+      }
     },
     {
       path: '/profile/:idUser',
       name: 'profile',
-      component: Profile
+      component: Profile,
+      meta: {
+        title: sitetitle('Profile')
+      }
     },
     {
       path: '/histori-pesanan/:idUser',
       name: 'history',
-      component: History
+      component: History,
+      meta: {
+        title: sitetitle('Histori')
+      }
     }
   ]
+});
+
+router.beforeEach((to, from, next) => {
+  const nearestWithTitle = to.matched.slice().reverse().find(r => r.meta && r.meta.title);
+  const nearestWithMeta = to.matched.slice().reverse().find(r => r.meta && r.meta.metaTags);
+  const previousNearestWithMeta = from.matched.slice().reverse().find(r => r.meta && r.meta.metaTags);
+  if(nearestWithTitle) document.title = nearestWithTitle.meta.title;
+  Array.from(document.querySelectorAll('[data-vue-router-controlled]')).map(el => el.parentNode.removeChild(el));
+  if(!nearestWithMeta) return next();
+  nearestWithMeta.meta.metaTags.map(tagDef => {
+    const tag = document.createElement('meta');
+    Object.keys(tagDef).forEach(key => {
+      tag.setAttribute(key, tagDef[key]);
+    });
+    tag.setAttribute('data-vue-router-controlled', '');
+    return tag;
+  })
+  .forEach(tag => document.head.appendChild(tag));
+
+  next();
 });
 
 export default router
