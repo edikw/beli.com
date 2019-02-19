@@ -1,10 +1,10 @@
 
-# tukulek.com
+# beli.com
 
 ## Project setup
 ```
-git clone https://github.com/edikw/tukulek.com.git
-change directory to tukulek.com
+git clone https://github.com/edikw/beli.com.git
+change directory to beli.com
 npm install
 ```
 
