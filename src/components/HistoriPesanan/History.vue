@@ -35,7 +35,6 @@
 				</div>
 			</v-flex>
 		</v-layout>
-		<v-divider></v-divider>
 		<template>
 			<div class="text-xs-center">
 				<v-dialog
@@ -119,8 +118,6 @@
 				document.getElementById("workIMG").click()
 			},
 			onFilePicked(event) {
-				var self = this
-				const image = event.target.files[0];
 				console.log(event)
 
 				// let data = new FormData();

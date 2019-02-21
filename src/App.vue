@@ -2,114 +2,149 @@
 	<v-app>
 		<v-toolbar height="80" color="light">
 			<v-layout class="mt-0">
-				<v-toolbar-side-icon class="hidden-md-and-up" @click.stop="drawer = !drawer">
-				</v-toolbar-side-icon>
-				<v-flex xs2 align-self-center>
-					<router-link to ="/" class="logoNavbar hidden-sm-and-down">
-						<div class="text-center">
-							<h1>Beli.com</h1>
-						</div>
-					</router-link>
-					<router-link to="/" class="logoNavbar hidden-md-and-up">
-						<div class="text-center">
-							<h1>Beli.com</h1>
-						</div>
-					</router-link>
-				</v-flex>
-				<v-menu class="mr-5 hidden-sm-and-down" offset-y >
-					<v-list-tile slot="activator">
-						<v-icon class="mr-2">menu</v-icon>
-						Category
-					</v-list-tile>
-					<v-list>
-						<v-list-tile
-							v-for="(item, index) in category"
-							:key="index"
-						>
-							<v-list-tile-title>{{ item.title }}</v-list-tile-title>
-						</v-list-tile>
-					</v-list>
-				</v-menu>
-				<v-layout class="justify-center hidden-xs-only">
-					<v-flex xs8 lg12>
-						<v-text-field
-							class="m-0 pt-0"
-							flat
-							label="Search"
-							prepend-inner-icon="search"
-							color="teal">  
-						</v-text-field>
+				<v-flex xs6 sm3 md2 lg2 class="d-inline-flex">
+					<v-toolbar-side-icon class="hidden-md-and-up" @click.stop="drawer = !drawer">
+					</v-toolbar-side-icon>
+					<v-flex align-self-center>
+						<router-link to ="/" class="logoNavbar hidden-sm-and-down">
+							<div class="text-center">
+								<h1>Beli.com</h1>
+							</div>
+						</router-link>
+						<router-link to="/" class="logoNavbar hidden-md-and-up">
+							<div class="text-center">
+								<h1>Beli.com</h1>
+							</div>
+						</router-link>
 					</v-flex>
-				</v-layout>
-				<v-layout align-center justify-end>
-					<v-menu offset-y>
-						<v-badge left color="teal" slot="activator" v-if ="!avatarLogin">
-							<span slot="badge">0</span>
-							<v-icon
-							medium
-							color="teal"
+				</v-flex>
+				<v-flex md2 lg2 class="hidden-sm-and-down">
+					<v-menu offset-y open-on-hover >
+						<v-list-tile slot="activator">
+							<v-icon class="mr-2">menu</v-icon>
+							Category
+						</v-list-tile>
+						<v-list>
+							<v-list-tile
+								v-for="(item, index) in category"
+								:key="index"
 							>
-							shopping_cart
-							</v-icon>
-						</v-badge>
-						<v-badge left color="teal" slot="activator" v-else>
-							<span slot="badge" v-for="(badge, i) in dataUser" :key="i">{{badge.chart.length}}</span>
-							<v-icon
-							medium
-							color="teal"
-							>
-							shopping_cart
-							</v-icon>
-						</v-badge>
-						<v-card v-if="!avatarLogin">
-							<v-list-tile>
-								<v-list-tile-title>Total barang: 0</v-list-tile-title>
+								<v-list-tile-title>{{ item.title }}</v-list-tile-title>
 							</v-list-tile>
-							<v-divider light></v-divider>
-							<div class="px-5">
-								<v-img :src="require('./assets/cart.png')"></v-img>
-							</div>
-							<v-list-tile>
-								<v-list-tile-title>Belum ada barang yang ditambahkan</v-list-tile-title>
-							</v-list-tile>
-							<v-divider light></v-divider>
-								<div class="text-center">
-									<v-btn flat color="teal" @click="pageKeranjang">Lihat Keranjang</v-btn>
-								</div>
-						</v-card>
-
-						<v-card v-for="(keranjang, i) in dataUser" v-else :key="i">
-							<v-list-tile>
-								<v-list-tile-title>Total barang: {{keranjang.chart.length}}</v-list-tile-title>
-							</v-list-tile>
-							<v-divider light></v-divider>
-							<div v-if="keranjang.chart.length == 0">
-								<div class="px-5">
-									<v-img :src="require('./assets/cart.png')"></v-img>
-								</div>
-								<v-list-tile>
-									<v-list-tile-title>Belum ada barang yang ditambahkan</v-list-tile-title>
-								</v-list-tile>
-							</div>
-							<v-list-tile class="py-5 px-4" v-else>
-								<v-list-tile-title>Anda Memiliki {{keranjang.chart.length}} barang di keranjang</v-list-tile-title>
-							</v-list-tile>
-							<v-divider light></v-divider>
-								<div class="text-center">
-									<v-btn flat color="teal" @click="pageKeranjang">Lihat Keranjang</v-btn>
-								</div>
-						</v-card>
+						</v-list>
 					</v-menu>
-				</v-layout>
-				<v-layout class="hidden-sm-and-down justify-center align-center" id="account" v-if="avatarLogin">
-						<div class="d-flex">
-							<v-menu open-on-hover offset-y>
-								<v-avatar slot="activator" v-if="avatarUser">
-									<img
-									:src="avatarUser"
-									tile
+				</v-flex>
+					<v-flex xs8 sm7 md4 lg5 class="hidden-xs-only">
+						<v-text-field
+							solo
+							label="Search"
+							append-icon="search"
+							color="teal darken-4"
+							v-model="search"
+							@click:append="searching"
+							v-on:keyup="searching"
+							@keypress.13.prevent="searching"
+						></v-text-field>
+						<div v-if="dataResultSearch.length > 0" class="searchResult">
+							<p style="font-size: 12px;" class="ma-0">{{dataResultSearch.length}} hasil dari ' {{search}} '</p>
+							<v-list two-line v-bind:class="[search ? 'd-block' : 'd-none']" light class="pa-0">
+								<div class="text-xs-right">
+									<v-icon class="px-2" v-on:click="exit" small color="teal">close</v-icon>
+								</div>
+								<div v-for="(item, index) in dataResultSearch" :key="index">
+									<v-list-tile
+									color="teal"
 									>
-							</v-avatar>
+										<v-list-tile-avatar>
+											<img :src="item.thumbnail">
+										</v-list-tile-avatar>
+
+										<v-list-tile-content>
+											<v-list-tile-title v-html="item.nama_barang"></v-list-tile-title>
+											<v-list-tile-sub-title v-html="item.price"></v-list-tile-sub-title>
+										</v-list-tile-content>
+									</v-list-tile>
+								<v-divider></v-divider>
+								</div>
+							</v-list>
+						</div>
+					</v-flex>
+					<v-flex lg1 d-inline-flex align-center>
+						<div class="text-xs-right text-sm-center text-md-right">
+							<v-menu offset-y>
+								<v-badge left color="teal" slot="activator" v-if ="!avatarLogin">
+									<span slot="badge">0</span>
+									<v-icon
+									medium
+									color="teal"
+									>
+									shopping_cart
+									</v-icon>
+								</v-badge>
+								<v-badge left color="teal" slot="activator" v-else>
+									<span slot="badge" v-for="(badge, i) in dataUser" :key="i">{{badge.chart.length}}</span>
+									<v-icon
+									medium
+									color="teal"
+									>
+									shopping_cart
+									</v-icon>
+								</v-badge>
+								<v-card v-if="!avatarLogin">
+									<v-list-tile>
+										<v-list-tile-title>Total barang: 0</v-list-tile-title>
+									</v-list-tile>
+									<v-divider light></v-divider>
+									<div class="px-5">
+										<v-img :src="require('./assets/cart.png')"></v-img>
+									</div>
+									<v-list-tile>
+										<v-list-tile-title>Belum ada barang yang ditambahkan</v-list-tile-title>
+									</v-list-tile>
+									<v-divider light></v-divider>
+										<div class="text-center">
+											<v-btn flat color="teal" @click="pageKeranjang">Lihat Keranjang</v-btn>
+										</div>
+								</v-card>
+
+								<v-card v-for="(keranjang, i) in dataUser" v-else :key="i">
+									<v-list-tile>
+										<v-list-tile-title>Total barang: {{keranjang.chart.length}}</v-list-tile-title>
+									</v-list-tile>
+									<v-divider light></v-divider>
+									<div v-if="keranjang.chart.length == 0">
+										<div class="px-5">
+											<v-img :src="require('./assets/cart.png')"></v-img>
+										</div>
+										<v-list-tile>
+											<v-list-tile-title>Belum ada barang yang ditambahkan</v-list-tile-title>
+										</v-list-tile>
+									</div>
+									<v-list-tile class="py-5 px-4" v-else>
+										<v-list-tile-title>Anda Memiliki {{keranjang.chart.length}} barang di keranjang</v-list-tile-title>
+									</v-list-tile>
+									<v-divider light></v-divider>
+										<div class="text-center">
+											<v-btn flat color="teal" @click="pageKeranjang">Lihat Keranjang</v-btn>
+										</div>
+								</v-card>
+							</v-menu>
+						</div>
+					</v-flex>
+					<v-flex class="hidden-sm-and-down justify-center text-xs-center" id="account" v-if="avatarLogin" lg2>
+						<div>
+							<v-menu 
+								open-on-hover
+								origin="center center" 
+								transition="scale-transition" 
+								bottom>
+								<v-avatar slot="activator" v-if="avatarUser">
+									<v-flex d-flex class="text-lg-left">
+										<p caption class="mb-0">Hay,</p>
+										<p class="mb-0 ml-2" style="color: teal;" v-for="(name,i) in dataUser" :key="i">{{name.username}}</p>
+									</v-flex>
+
+								</v-avatar>
 							<v-list class="py-0">
 								<v-list-tile
 									>
@@ -152,13 +187,12 @@
 									</v-list-tile>
 								</v-list>
 						</v-menu>
-						<div class="d-inline-block ml-2" v-for="(name,i) in dataUser" :key="i">
-							<p caption class="mb-0">Hay,</p><p class="mb-0" style="color: teal;">{{name.username}}</p>
+						
 						</div>
-						</div>
-				</v-layout>
+						</v-flex>
+				<!-- </v-layout> -->
 
-				<div class="hidden-md-and-down justify-center" v-else>
+				<v-layout class="hidden-sm-and-down justify-center" v-else>
 					<v-dialog max-width="400px" v-model="dialog">
 						<v-btn
 							slot="activator"
@@ -276,7 +310,7 @@
 							</v-card-title>
 						</v-card>
 					</v-dialog>
-				</div>
+				</v-layout>
 			</v-layout>
 		</v-toolbar>
 			<v-navigation-drawer
@@ -312,16 +346,14 @@
 						</v-btn>
 					</v-list-tile>
 				</v-list>
-				<v-list v-if="avatarLogin">
-					<v-list-tile avatar tag="div">
-						<v-list-tile-avatar>
-							<img :src="avatarUser">
-						</v-list-tile-avatar>
-						<v-list-tile-content v-for="(name, i) in dataUser" :key="i">
-							<v-list-tile-title>{{name.username}}</v-list-tile-title>
-						</v-list-tile-content>
-					</v-list-tile>
-				</v-list>
+				<v-flex d-inline-flex v-if="avatarLogin" class="py-3">
+						<div class="px-3">
+							<p class="ma-0" style="color: #fff; font-weight: bold;">Hai</p>
+						</div>
+						<div v-for="(name, i) in dataUser" :key="i">
+							<p class="ma-0" style="color: #80cbc4; font-weight: bold;">{{name.username}}</p>
+						</div>
+				</v-flex>
 				<v-list class="pt-0" dense  v-if="avatarLogin">
 				<v-divider light></v-divider>
 					<v-list-tile
@@ -398,7 +430,7 @@
 
 		<router-view :key="$route.fullPath" />
 
-		<v-card flat class="hidden-md-and-up" style="overflow: hidden; position: fixed; bottom: 0; width: 100%;">
+		<v-card flat class="hidden-md-and-up" style="position: fixed; bottom: 0; overflow: hidden; width: 100%; transition: bottom 0.3s;" id="nav">
 			<v-bottom-nav
 				:value="true"
 				color="transparent"
@@ -479,7 +511,6 @@
 <script>
 	import axios from 'axios'
 
-
 	const urlApi = 'http://192.168.2.230:3000/'
 
 	const url ={
@@ -493,9 +524,10 @@
 		urlGetCartId: urlApi + 'chart/user/',
 		urlPostPembayaran: urlApi + 'user/transaksi/',
 		urlGetIdTransaksi: urlApi + 'transaksi/',
-		urlgetUserTransaksiId: urlApi + 'user/transaksi/'
+		urlgetUserTransaksiId: urlApi + 'user/transaksi/',
+		urlSearch: urlApi + 'search',
+		urlProfile: urlApi + 'profile/users/'
 	}
-
 	export default {
 		name: 'App',
 		data () {
@@ -556,7 +588,9 @@
 				mendaftar: false,
 				jumlahCart: [],
 				dataUser: [],
-				loginGagal: false
+				loginGagal: false,
+				search: '',
+				dataResultSearch: []
 			}
 		},
 		mounted(){
@@ -582,9 +616,40 @@
 				if(localStorage.getItem('token')){
 					self.getDataUserId();
 				}
-			})
+			});
+
+			var prevScrollpos = window.pageYOffset;
+			window.onscroll = function() {
+			var currentScrollPos = window.pageYOffset;
+				if (prevScrollpos > currentScrollPos) {
+					document.getElementById("nav").style.bottom = "0";
+				} else {
+					document.getElementById("nav").style.bottom = "-55px";
+				}
+				prevScrollpos = currentScrollPos;
+			}
 		},
 		methods: {
+			searching(){
+				this.dataResultSearch = []
+
+				if(this.search.length >= 3 && this.search.length <=5){
+					var datasearch = {
+						search: this.search
+					}
+
+					axios.post(this.url.urlSearch, datasearch).then(res =>{
+						if(res.status == 200){
+							this.dataResultSearch = res.data.result
+						}
+
+					})
+				}
+			},
+			exit(){
+				this.search = ''
+				this.dataResultSearch = []
+			},
 			pageAkun(){
 				var id = localStorage.getItem('id')
 				

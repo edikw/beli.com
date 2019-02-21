@@ -1,6 +1,6 @@
 <template>
 	<v-container>
-		<div class="hidden-sm-and-down" v-if="banner && banner.length > 0">
+		<div class="" v-if="banner && banner.length > 0">
 			<v-img :src="banner[3].banner.thumbnail"  height="200">
 				<v-layout fill-height align-center pa-3>
 					<v-flex style="color: #000;">

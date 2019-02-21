@@ -7,9 +7,10 @@
 					<v-layout>
 						<v-flex xs12 lg12>
 							<carousel 
-								:per-page-custom="[[320, 1],[480, 2], [768, 4], [1440, 5],[1441, 6]]" 
+								:per-page-custom="[[200, 1],[400, 2], [580, 3],[700,4], [900,5], [1265,6],[1439,6]]"  
 								:paginationEnabled="false" 
-								:navigationEnabled="true" 
+								:navigationEnabled="true"
+								:mouseDrag="true" 
 								navigationNextLabel="<h1>&#8250;</h1>" navigationPrevLabel="<h1>&#8249;</h1>">
 								<slide v-for="(listData, i) in product" :key="i">
 									<v-card
@@ -20,16 +21,13 @@
 										</v-img>
 										<v-card-title>
 											<div>
-												<h4 class="subheading mb-0">
-													{{listData.data_barang.nama_barang}}
-												</h4>
-												<h4>{{listData.data_barang.price}}</h4>
-												<div>
-													<v-btn class="mx-0 mt-3" outline color="teal lighten -3" @click="showcart(listData)">
-													<v-icon>shopping_cart</v-icon>Add To Cart</v-btn>
-												</div>
+												<v-list-tile-sub-title v-html="listData.data_barang.nama_barang"></v-list-tile-sub-title>
+												<h5>{{listData.data_barang.price}}</h5>
 											</div>
 										</v-card-title>
+										<div class="pa-2 text-xs-right text-lg-right">
+											<v-icon @click="showcart(listData)" small color="teal">shopping_cart</v-icon>
+										</div>
 									</v-card>
 								</slide>
 							</carousel>
@@ -45,6 +43,7 @@
 </template>
 <script>
 import { Carousel, Slide } from 'vue-carousel';
+import App from '../../App';
 export default {
 	components: {
 		Carousel,
@@ -52,7 +51,8 @@ export default {
 	},
 	data() {
 		return {
-			product: []
+			product: [],
+			urlAddChart: App.data().url.urlAddChart
 		}
 	},
 	mounted(){
@@ -73,9 +73,29 @@ export default {
 			}
 		},
 		showcart(e){
+			var self = this;
+				var idUser = localStorage.getItem('id');
+				var dataBarang = {
+					id_pembeli : idUser,
+					id_barang : e.id
+				}
+
+				console.log('yang dikirm', dataBarang)
+
 			if(!localStorage.getItem('token')){
 				this.$root.$emit('addCartShowPopular', e)
 				console.log('EMIT', e)
+			}else {
+				App.methods.postData(this.urlAddChart + idUser, dataBarang, function(res){
+						if(res.status == 200){
+							alert('Menambahkan Ke Keranjang Belanja')
+							self.$root.$emit('addCart', res)
+							
+						}else {
+							alert('Barang Yang anda pilih sudah tersedia di Keranjang')
+						}
+
+					});
 			}
 		}
 	}

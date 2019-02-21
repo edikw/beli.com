@@ -1,53 +1,59 @@
 <template>
 	<v-container class="pa-0">
-	<div class="px-4">
-		<v-divider></v-divider>
-	</div>
-	<v-container class=py-0 d-flex>
-		<v-flex xs12 sm9 lg10 align-end justify-end class="border py-4">
-			<v-layout row wrap>
-				<div
-					v-for="(data, i) in product" 
-					:key="i">
-					<v-card class="ma-1" max-width="185">
-						<v-img
-							:src="data.data_barang.thumbnail"
-							aspect-ratio="1.5" 
-							contain 
-							v-on:click="detailPage(data)" 
-							style="cursor: pointer;"
-						></v-img>
-						<v-card-title>
-							<div>
-								<h4 class="subheading mb-0">
-									{{data.data_barang.nama_barang}}
-								</h4>
-								<h4>{{data.data_barang.price}}</h4>
-								<div>
-									<v-btn class="mx-0 mt-3" outline color="teal lighten -3" @click="showcart(data)">
-									<v-icon>shopping_cart</v-icon>Add To Cart</v-btn>
-								</div>
-							</div>
-						</v-card-title>
-					</v-card>
-				</div>
+		<div class="px-4 hidden-sm-and-down">
+			<v-divider></v-divider>
+		</div>
+		<v-flex xs12 class="px-3 hidden-md-and-up">
+			<v-layout row wrap class="ul-small">
+				<ul v-for="(cat, i) in category" :key="i" class="pa-0 px-1">
+					<li class="pa-1">{{cat.title}}</li>
+				</ul>
 			</v-layout>
 		</v-flex>
-		<v-flex lg2>
-			<div class="py-3 detail">
-				<span>Cari Lebih Detail</span>
-			</div>
-			<div class="mx-3 py-3 listKategori">
-				<span class="font-weight-bold">Kategori</span>
-				<div class="kategori">
-					<ul v-for="(cat, i) in category" :key="i">
-						<li class="pa-1">{{cat.title}}</li>
-					</ul>
+		<v-container class=py-0 d-flex grid-list-md text-xs-center>
+			<v-flex xs2 class="hidden-sm-and-down" style="border-right: 1px solid #ddd;">
+				<div class="pr-3 pt-3">
+					<div class="detail">
+						<span>Cari Lebih Detail</span>
+					</div>
+					<div class="py-3 listKategori">
+						<div class="text-xs-left">
+							<span class="font-weight-bold">Kategori</span>
+						</div>
+						<div class="kategori">
+							<ul v-for="(cat, i) in category" :key="i">
+								<li class="pa-1">{{cat.title}}</li>
+							</ul>
+						</div>
+					</div>
+					
 				</div>
-			</div>
-		</v-flex>
-</v-container>
-</v-container>
+			</v-flex>
+				<v-layout row wrap>
+					<v-flex
+						v-for="(data, i) in product" 
+						:key="i" xs6 sm3 lg2 class="pl-2 pt-2">
+						<v-card class="ma-1" max-width="185">
+							<v-img
+								:src="data.data_barang.thumbnail"
+								aspect-ratio="1.7"
+								
+								contain
+								v-on:click="detailPage(data)" 
+								style="cursor: pointer;"
+							></v-img>
+							<v-card-title class="text-xs-left">
+								<v-list-tile-sub-title v-html="data.data_barang.nama_barang"></v-list-tile-sub-title>
+								<h5>{{data.data_barang.price}}</h5>
+							</v-card-title>
+								<div class="pa-2 text-xs-right text-lg-right">
+									<v-icon small @click="showcart(data)" color="teal">shopping_cart</v-icon>
+								</div>
+						</v-card>
+					</v-flex>
+				</v-layout>
+		</v-container>
+	</v-container>
 </template>
 <script>
 	import App from '../../App'
@@ -86,8 +92,10 @@
 					App.methods.postData(this.urlAddChart + idUser, dataBarang, function(res){
 						if(res.status == 200){
 							alert('Menambahkan Ke Keranjang Belanja')
-							self.$root.$emit('addCart', self.countCart)
+							self.$root.$emit('addCart', res)
 							
+						}else {
+							alert('Barang Yang anda pilih sudah tersedia di Keranjang')
 						}
 
 					});
@@ -128,6 +136,11 @@
 		cursor: pointer;
 	}
 	.kategori ul:hover {
+		color: teal;
+	}
+	.ul-small ul{
+		text-decoration: none;
+		list-style: none;
 		color: teal;
 	}
 </style>

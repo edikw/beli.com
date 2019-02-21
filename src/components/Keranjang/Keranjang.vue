@@ -5,40 +5,35 @@
 			<h5 style="font-weight: normal;" v-if="dataCart.length >0" >Anda Memiliki {{dataCart.length}} Barang Belanja yang Belum di bayar</h5>
 			<h5 v-else style="font-weight: normal;">Keranjang Belanja Anda Kosong yuk cari Barang mu dan temukan potongan harga yang menarik</h5>
 		</div>
-		<v-layout row wrap justify-start v-for="(item, i) in dataCart" class="py-2" :key="i">
-			<v-flex xs12 sm4 md6 lg3>
-				<v-card>
-					<v-img
-						class="white--text"
-						:src="item.data.thumbnail" aspect-ratio="1.7"
-					>
-					</v-img>
-				</v-card>
-			</v-flex>
-			<v-flex xs12 sm5 lg4>
-				<div class="mx-4">
-					<div class="mb-2">
-						<h3 class="py-2">{{item.data.nama_barang}}</h3>
-						<v-divider></v-divider>
-					</div>
-
-					<div class="mb-2">
-						<h5>Harga</h5>
-						<h3>{{item.data.price}}</h3>
-					</div>
-					<div class="mb-2">
-						<div>
-							<h5>Jumlah Stock</h5>
-							<h3>{{item.data.stock}} barang</h3>
-						</div>
-					</div>
-					<div>
-						<v-btn small color="teal" dark @click="bayar(item)">Beli</v-btn>
-						<v-btn outline small color="teal" dark>Hapus</v-btn>
-					</div>
-				</div>
-			</v-flex>
-		</v-layout>
+		<v-container class="py-2 px-0" d-flex grid-list-md>
+			<v-layout row wrap>
+				<v-flex
+					v-for="(item, i) in dataCart" :key="i"
+					xs6 sm3 lg2 class="pa-0">
+					<v-card class="ma-1" max-width="185">
+						<v-img
+							:src="item.data.thumbnail"
+							aspect-ratio="1.7"
+							contain
+							v-on:click="detailPage(data)" 
+							style="cursor: pointer;"
+						></v-img>
+						<v-card-title class="text-xs-left">
+							<v-list-tile-sub-title v-html="item.data.nama_barang"></v-list-tile-sub-title>
+							<v-list-tile-sub-title v-html="item.data.price"></v-list-tile-sub-title>
+							<div>
+								<h5 style="font-weight: normal;">Jumlah Stock</h5>
+								<h5 style="font-weight: normal;">{{item.data.stock}} barang</h5>
+							</div>
+						</v-card-title>
+							<div class="pa-2 text-xs-right text-lg-right d-flex">
+								<v-btn outline small dark @click="bayar(item)" color="teal">Beli</v-btn>
+								<v-icon color="teal">delete</v-icon>
+							</div>
+					</v-card>
+				</v-flex>
+			</v-layout>
+		</v-container>
 		<v-divider></v-divider>
 	</v-container>
 </template>

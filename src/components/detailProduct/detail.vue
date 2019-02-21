@@ -107,7 +107,7 @@
 					App.methods.postData(this.urlAddChart + idUser, dataBarang, function(res){
 						if(res.status == 200){
 							alert('Menambahkan Ke Keranjang Belanja')
-							self.$root.$emit('addCart', self.countCart)
+							self.$root.$emit('addCart', res)
 						}else {
 							alert('Barang sudah ada di Keranjang yuk lanjutkan untuk pembelian')
 						}

@@ -17,9 +17,10 @@
 						color="transparent" >
 						<v-card flat v-if="product && product.length > 0">
 							<carousel 
-								:per-page-custom="[[320, 1],[480, 2], [768, 4], [1440, 5],[1441, 6]]" 
+								:per-page-custom="[[200, 1],[400, 2], [580, 3],[700,4], [900,5], [1265,6],[1439,6]]"  
 								:paginationEnabled="false" 
 								:navigationEnabled="true" 
+								:mouseDrag="true"
 								navigationNextLabel="<h1>&#8250;</h1>" navigationPrevLabel="<h1>&#8249;</h1>">
 								<slide v-for="(listData, i) in product" :key="i">
 									<v-card
@@ -27,20 +28,20 @@
 										max-width="185">
 										<v-img 
 											:src="listData.data_barang.thumbnail" 
-											aspect-ratio="1.5" 
+											aspect-ratio="1.7" 
 											contain 
 											v-on:click="detailPage(listData)" style="cursor: pointer;">
 										</v-img>
 										<v-card-title>
 											<div>
-												<h4 class="subheading mb-0">{{listData.data_barang.nama_barang}}</h4>
-												<h4>{{listData.data_barang.price}}</h4>
-												<div>
-													<v-btn class="mx-0 mt-3" outline color="teal lighten -3" @click="showcart(listData)">
-													<v-icon>shopping_cart</v-icon>Add To Cart</v-btn>
-												</div>
+												<v-list-tile-sub-title v-html="listData.data_barang.nama_barang"></v-list-tile-sub-title>
+												
+												<h5>{{listData.data_barang.price}}</h5>
 											</div>
 										</v-card-title>
+										<div class="pa-2 text-xs-right text-lg-right">
+											<v-icon @click="showcart(listData)" small color="teal">shopping_cart</v-icon>
+										</div>
 									</v-card>
 								</slide>
 							</carousel>
@@ -55,42 +56,39 @@
 					>Hot Sale
 					</v-tab>
 					<v-tab-item
-						color="transparent">
+						color="transparent" class="my-2">
 						<v-card flat v-if="product && product.length > 0">
-							<v-flex
-								xs12
-								class="my-2">
-								<carousel 
-									:per-page-custom="[[320, 1],[480, 2], [768, 4], [1440, 5],[1441, 6]]" 
-									:paginationEnabled="false" 
-									:navigationEnabled="true" 
-									navigationNextLabel="<h1>&#8250;</h1>" 
-									navigationPrevLabel="<h1>&#8249;</h1>">
-									<slide v-for="(listData, i) in product" :key="i">
-										<v-card
-											class="mx-auto"
-											max-width="185">
-											<v-img 
-												:src="listData.data_barang.thumbnail" 
-												aspect-ratio="1.5" 
-												contain 
-												v-on:click="detailPage(listData)" 
-												style="cursor: pointer;">
-											</v-img>
-											<v-card-title>
-												<div>
-													<h4 class="subheading mb-0">{{listData.data_barang.nama_barang}}</h4>
-													<h4>{{listData.data_barang.price}}</h4>
-													<div>
-														<v-btn class="mx-0 mt-3" outline color="teal lighten -3" @click="showcart(listData)">
-													<v-icon>shopping_cart</v-icon>Add To Cart</v-btn>
-													</div>
-												</div>
-											</v-card-title>
-										</v-card>
-									</slide>
-								</carousel>
-							</v-flex>
+							<carousel 
+								:per-page-custom="[[200, 1],[400, 2], [580, 3],[700,4], [900,5], [1265,6],[1439,6]]"  
+								:paginationEnabled="false" 
+								:navigationEnabled="true"
+								:mouseDrag="true"
+								navigationNextLabel="<h1>&#8250;</h1>" 
+								navigationPrevLabel="<h1>&#8249;</h1>">
+								<slide v-for="(listData, i) in product" :key="i">
+									<v-card
+										class="mx-auto"
+										max-width="185">
+										<v-img 
+											:src="listData.data_barang.thumbnail" 
+											aspect-ratio="1.5" 
+											contain 
+											v-on:click="detailPage(listData)" 
+											style="cursor: pointer;">
+										</v-img>
+										<v-card-title>
+											<div>
+												<v-list-tile-sub-title v-html="listData.data_barang.nama_barang"></v-list-tile-sub-title>
+												
+												<h5>{{listData.data_barang.price}}</h5>
+											</div>
+										</v-card-title>
+										<div class="pa-2 text-xs-right text-lg-right">
+											<v-icon @click="showcart(listData)" small color="teal">shopping_cart</v-icon>
+										</div>
+									</v-card>
+								</slide>
+							</carousel>
 						</v-card>
 						<v-flex class="text-xs-right text-lg-right">
 							<v-btn color="teal" small dark class="mx-0" @click="pageShowProduct">Lihat Semua</v-btn>
@@ -106,9 +104,10 @@
 						color="transparent" >
 						<v-card flat v-if="product && product.length > 0">
 							<carousel 
-								:per-page-custom="[[320, 1],[480, 2], [768, 4], [1440, 5],[1441, 6]]" 
+								:per-page-custom="[[200, 1],[400, 2], [580, 3],[700,4], [900,5], [1265,6],[1439,6]]"  
 								:paginationEnabled="false" 
-								:navigationEnabled="true" 
+								:navigationEnabled="true"
+								:mouseDrag="true" 
 								navigationNextLabel="<h1>&#8250;</h1>" 
 								navigationPrevLabel="<h1>&#8249;</h1>">
 								<slide v-for="(listData, i) in product" :key="i">
@@ -125,14 +124,14 @@
 										</v-img>
 										<v-card-title>
 											<div>
-												<h4 class="subheading mb-0">{{listData.data_barang.nama_barang}}</h4>
-												<h4>{{listData.data_barang.price}}</h4>
-												<div>
-													<v-btn class="mx-0 mt-3" outline color="teal lighten -3" @click="showcart(listData)">
-													<v-icon>shopping_cart</v-icon>Add To Cart</v-btn>
-												</div>
+												<v-list-tile-sub-title v-html="listData.data_barang.nama_barang"></v-list-tile-sub-title>
+												
+												<h5>{{listData.data_barang.price}}</h5>
 											</div>
 										</v-card-title>
+										<div class="pa-2 text-xs-right text-lg-right">
+											<v-icon @click="showcart(listData)" small color="teal">shopping_cart</v-icon>
+										</div>
 									</v-card>
 								</slide>
 							</carousel>
@@ -185,8 +184,10 @@
 					App.methods.postData(this.urlAddChart + idUser, dataBarang, function(res){
 						if(res.status == 200){
 							alert('Menambahkan Ke Keranjang Belanja')
-							self.$root.$emit('addCart', self.countCart)
+							self.$root.$emit('addCart', res)
 							
+						}else {
+							alert('Barang Yang anda pilih sudah tersedia di Keranjang')
 						}
 
 					});
