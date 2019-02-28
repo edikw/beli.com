@@ -108,8 +108,8 @@
 						</v-card>
 					</v-flex>
 					<v-flex xs12 sm5 lg5>
-						<div class="mx-2">
-							<h5 class="pb-2">{{dataBarang.nama_barang}}</h5>
+						<div class="mx-1">
+							<v-list-tile-sub-title v-html="dataBarang.nama_barang" class="py-2"></v-list-tile-sub-title>
 							<h5>{{dataBarang.price}}</h5>
 							<div>
 								<v-card-text class="py-0 px-0">

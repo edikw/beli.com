@@ -1,12 +1,13 @@
 <template>
 	<v-container class="py-0">
-		<v-layout row justify-center>
+		<v-layout row justify-center class="hidden-xs-only">
 			<v-flex xs10 sm11 md12 lg12>
 				<v-tabs
 					color="teal lighten-3"
 					slider-color="teal"
 					:grow="true"
-					:centered="true">
+					:centered="true"
+					:mandatory="false" fixed-tabs>
 					<v-tab
 						ripple
 						v-if="product && product.length > 0"
@@ -124,6 +125,151 @@
 											contain 
 											v-on:click="detailPage(listData)" 
 											style="cursor: pointer;">
+										</v-img>
+										<v-card-title>
+											<div>
+												<v-list-tile-sub-title v-html="listData.data_barang.nama_barang"></v-list-tile-sub-title>
+												
+												<h5>{{listData.data_barang.price}}</h5>
+											</div>
+										</v-card-title>
+										<div class="pa-2 text-xs-right text-lg-right">
+											<v-icon @click="showcart(listData)" small color="teal">shopping_cart</v-icon>
+										</div>
+									</v-card>
+								</slide>
+							</carousel>
+						</v-card>
+						<v-flex class="text-xs-right text-lg-right">
+							<v-btn color="teal" dark small class="mx-0" @click="pageShowProduct">Lihat Semua</v-btn>
+						</v-flex>
+					</v-tab-item>
+				</v-tabs>
+			</v-flex>
+		</v-layout>
+		<v-layout row justify-center class="hidden-sm-and-up">
+			<v-flex xs11>
+				<v-tabs
+					color="teal lighten-3"
+					slider-color="teal"
+					:grow="true"
+					:centered="true"
+					:mandatory="false" fixed-tabs>
+					<v-tab
+						ripple
+						v-if="product && product.length > 0"
+					>
+						Featured
+					</v-tab>
+					<v-tab-item
+						class="my-2"
+						color="transparent">
+						<v-card flat>
+							<carousel 
+								:per-page-custom="[[200, 2],[400, 2], [580, 3],[700,4], [900,5], [1265,6],[1439,6]]"  
+								:paginationEnabled="false" 
+								:navigationEnabled="true" 
+								:mouseDrag="true"
+								navigationNextLabel="<h1 style='font-size:35px; color:teal;'>&#8250;</h1>" navigationPrevLabel="<h1 style='font-size:35px; color:teal;'>&#8249;</h1>">
+								<slide v-for="(listData, i) in product" :key="i">
+									<v-card
+										class="mx-auto"
+										max-width="180">
+										<v-img 
+											:src="listData.data_barang.thumbnail" 
+											aspect-ratio="1.7" 
+											contain 
+											height="80"
+											v-on:click="detailPage(listData)" style="cursor: pointer;">
+										</v-img>
+										<v-card-title>
+											<div>
+												<v-list-tile-sub-title v-html="listData.data_barang.nama_barang"></v-list-tile-sub-title>
+												
+												<h5>{{listData.data_barang.price}}</h5>
+											</div>
+										</v-card-title>
+										<div class="pa-2 text-xs-right text-lg-right">
+											<v-icon @click="showcart(listData)" small color="teal">shopping_cart</v-icon>
+										</div>
+									</v-card>
+								</slide>
+							</carousel>
+						</v-card>
+						<v-flex class=" text-xs-right text-lg-right">
+							<v-btn color="teal" dark small class="mx-0" @click="pageShowProduct">Lihat Semua</v-btn>
+						</v-flex>
+					</v-tab-item>
+
+					<v-tab
+						ripple
+						v-if="product && product.length > 0"
+					>Hot Sale
+					</v-tab>
+					<v-tab-item
+						color="transparent" class="my-2">
+						<v-card flat>
+							<carousel 
+								:per-page-custom="[[200, 2],[400, 2], [580, 3],[700,4], [900,5], [1265,6],[1439,6]]"  
+								:paginationEnabled="false" 
+								:navigationEnabled="true" 
+								:mouseDrag="true"
+								navigationNextLabel="<h1 style='font-size:35px; color:teal;'>&#8250;</h1>" navigationPrevLabel="<h1 style='font-size:35px; color:teal;'>&#8249;</h1>">
+								<slide v-for="(listData, i) in product" :key="i">
+									<v-card
+										class="mx-auto"
+										max-width="180">
+										<v-img 
+											:src="listData.data_barang.thumbnail" 
+											aspect-ratio="1.7" 
+											contain 
+											height="80"
+											v-on:click="detailPage(listData)" style="cursor: pointer;">
+										</v-img>
+										<v-card-title>
+											<div>
+												<v-list-tile-sub-title v-html="listData.data_barang.nama_barang"></v-list-tile-sub-title>
+												
+												<h5>{{listData.data_barang.price}}</h5>
+											</div>
+										</v-card-title>
+										<div class="pa-2 text-xs-right text-lg-right">
+											<v-icon @click="showcart(listData)" small color="teal">shopping_cart</v-icon>
+										</div>
+									</v-card>
+								</slide>
+							</carousel>
+						</v-card>
+						<v-flex class="text-xs-right text-lg-right">
+							<v-btn color="teal" small dark class="mx-0" @click="pageShowProduct">Lihat Semua</v-btn>
+						</v-flex>
+					</v-tab-item>
+					<v-tab
+						ripple
+						v-if="product && product.length > 0"
+					>
+						Best Offers
+					</v-tab>
+					<v-tab-item
+						class="my-2"
+						color="transparent" >
+						<v-card flat>
+							<carousel 
+								:per-page-custom="[[200, 2],[400, 2], [580, 3],[700,4], [900,5], [1265,6],[1439,6]]"  
+								:paginationEnabled="false" 
+								:navigationEnabled="true" 
+								:mouseDrag="true"
+								navigationNextLabel="<h1 style='font-size:35px; color:teal;'>&#8250;</h1>" navigationPrevLabel="<h1 style='font-size:35px; color:teal;'>&#8249;</h1>">
+								<slide v-for="(listData, i) in product" :key="i">
+									<v-card
+										class="mx-auto"
+										max-width="180">
+										<v-img 
+											:src="listData.data_barang.thumbnail" 
+											aspect-ratio="1.7" 
+											contain 
+											height="80"
+											v-on:click="detailPage(listData)" style="cursor: pointer;">
 										</v-img>
 										<v-card-title>
 											<div>

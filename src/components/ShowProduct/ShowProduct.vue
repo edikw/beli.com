@@ -12,7 +12,7 @@
 		</v-flex>
 		<v-container class=py-0 d-flex grid-list-md text-xs-center>
 			<v-flex xs2 class="hidden-sm-and-down" style="border-right: 1px solid #ddd;">
-				<div class="pr-3 pt-3">
+				<div class="pr-3">
 					<div class="detail">
 						<span>Cari Lebih Detail</span>
 					</div>
@@ -21,7 +21,7 @@
 							<span class="font-weight-bold">Kategori</span>
 						</div>
 						<div class="kategori">
-							<ul v-for="(cat, i) in category" :key="i">
+							<ul v-for="(cat, i) in category" :key="i" class="text-xs-left">
 								<li class="pa-1">{{cat.title}}</li>
 							</ul>
 						</div>
@@ -32,7 +32,7 @@
 				<v-layout row wrap>
 					<v-flex
 						v-for="(data, i) in product" 
-						:key="i" xs6 sm3 lg2 class="pl-2 pt-2">
+						:key="i" xs6 sm3 lg2 class="pa-0">
 						<v-card class="ma-1" max-width="185">
 							<v-img
 								:src="data.data_barang.thumbnail"

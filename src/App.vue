@@ -2,18 +2,18 @@
 	<v-app>
 		<v-toolbar height="80" color="light" v-on:click="exit" v-if="$route.name != 'pembelian' && $route.name != 'pembayaran'">
 			<v-layout class="mt-0">
-				<v-flex xs6 sm3 md2 lg2 class="d-inline-flex">
+				<v-flex xs3 sm4 md2 lg2 class="d-inline-flex align-self-center">
 					<v-toolbar-side-icon class="hidden-md-and-up" @click.stop="drawer = !drawer">
 					</v-toolbar-side-icon>
 					<v-flex align-self-center>
 						<router-link to ="/" class="logoNavbar hidden-sm-and-down">
 							<div class="text-center">
-								<h1>Beli.com</h1>
+								<h2>Bakulanpedia</h2>
 							</div>
 						</router-link>
 						<router-link to="/" class="logoNavbar hidden-md-and-up">
-							<div class="text-center">
-								<h1>Beli.com</h1>
+							<div class="text-center pl-2">
+								<h2 class="ma-0" style="color: teal; font-size: 20px;">Bakulanpedia</h2>
 							</div>
 						</router-link>
 					</v-flex>
@@ -34,7 +34,7 @@
 						</v-list>
 					</v-menu>
 				</v-flex>
-					<v-flex xs8 sm7 md4 lg5 class="hidden-xs-only">
+					<v-flex xs8 sm6 md4 lg5 class="hidden-xs-only">
 						<v-text-field
 							solo
 							label="Search"
@@ -178,7 +178,7 @@
 						>Login</v-btn>
 						<v-card>
 							<div class="text-center py-4 logo">
-								<h1>Beli.com</h1>
+								<h1 style="color:teal;">Bakulanpedia</h1>
 							</div>
 							<v-card-title class="py-0 px-0" style="justify-content: center;">
 								<div class="text-center">
@@ -240,7 +240,7 @@
 						</v-btn>
 						<v-card>
 							<div class="text-center py-4 logo">
-								<h1>Beli.com</h1>
+								<h1 style="color:teal;">Bakulanpedia</h1>
 							</div>
 							<v-card-title class="py-0 px-0 text-lg-center" style="justify-content: center;">
 								<span class="headline text-center">Daftar</span><br>
@@ -426,20 +426,20 @@
 		<v-card flat class="hidden-md-and-up" style="position: fixed; bottom: 0; overflow: hidden; width: 100%; transition: bottom 0.3s;" id="nav">
 			<v-bottom-nav
 				:value="true"
-				color="transparent"
+				color="teal lighten-2"
 			>
 				<v-btn
-					color="teal"
 					flat
 					value="home"
 					to="/"
+					dark
 				>
 					<span>Home</span>
 					<v-icon>home</v-icon>
 				</v-btn>
 
 				<v-btn
-					color="teal"
+					dark
 					flat
 					value="pesanan"
 					@click="pageHistory"
@@ -449,7 +449,7 @@
 				</v-btn>
 
 				<v-btn
-					color="teal"
+					dark
 					flat
 					value="keranjang"
 					@click='pageKeranjang'
@@ -459,7 +459,7 @@
 				</v-btn>
 
 				<v-btn
-					color="teal"
+					dark
 					flat
 					value="akun"
 					@click="profile"
@@ -472,11 +472,11 @@
 		<v-container fluid class="pa-0 ma-0 hidden-sm-and-down" d-flex grid-list-md>
 			<v-footer
 				height="auto"
-				color="grey darken-4">
+				color="teal">
 				<v-layout class="py-3 ma-0" row wrap>
 					<v-flex md3 lg3 text-lg-center text-md-center>
 						<div class="pa-5">
-							<h1 style="color: teal">Beli.com</h1>
+							<h1 style="color: #fff;" class="">Bakulanpedia</h1>
 						</div>
 					</v-flex>
 					<v-flex md2 lg2>
@@ -949,11 +949,11 @@
 	div .text-center {
 		text-align: center;
 	}
-	.logo h1{
+	.logo h2{
 		font-weight: bold;
 		color: teal;
 	}
-	.logoNavbar h1 {
+	.logoNavbar h2 {
 		margin-bottom: 5px;
 		font-weight: bold;
 		color: teal;
@@ -965,7 +965,7 @@
 	a {
 		text-decoration: none;
 	}
-	.logoSmall{
+	/*.logoSmall{
 		border: 2px solid teal;
 		background: teal;
 
@@ -973,7 +973,7 @@
 	.logoSmall h1 {
 		margin: 0;
 		color: #fff;
-	}
+	}*/
 	.title-footer{
 		text-align: left;
 		color: #fff;
