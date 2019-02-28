@@ -1,7 +1,10 @@
 <template>
 	<v-container grid-list>
-		<div class="pb-5">
+		<div class="pb-3">
 			<h2>Detail Produk</h2>
+			<div class="py-1">
+				<v-divider></v-divider>
+			</div>
 		</div>
 		<v-layout row wrap justify-center>
 			<v-flex xs12 sm5 md5 lg5 class="d-inline-block">
@@ -68,6 +71,7 @@
 		mounted(){
 			this.data = this.$route.params.name
 			this.getProductId();
+			window.scrollTo(0, 0);
 		},
 		methods: {
 			buy(e){

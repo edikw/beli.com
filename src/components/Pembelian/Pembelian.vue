@@ -1,9 +1,15 @@
 <template>
+	<v-container fluid class="pa-0">
+		<v-flex xs12>
+			<v-toolbar color="teal" dark height="60">
+				<v-icon @click="$router.go(-1)">arrow_back</v-icon>
+				<div class="px-3">
+					<h3>Data Pembelian</h3>
+				</div>
+			</v-toolbar>
+		</v-flex>
 	<v-container>
-		<div>
-			<h3>Data Pembelian</h3>
-			<h5 style="font-weight: normal;">Pastikan Data yang kamu masukkan sudah benar</h5>
-		</div>
+		<h5 style="font-weight: normal;">Pastikan Data yang kamu masukkan sudah benar</h5>
 		<v-flex xs12 class="py-4" d-flex>
 			<v-flex sm7 md7 lg7>
 			<v-card>
@@ -25,6 +31,7 @@
 							label="No Handphone/Telepon"
 							required
 							color="teal"
+							type="number"
 							v-model="noHp"
 							:rules="nameRules"
 						></v-text-field>
@@ -209,6 +216,7 @@
 			</v-card>
 		</v-dialog>
 	</v-container>
+	</v-container>
 </template>
 <script>
 	import App from '../../App'
@@ -244,7 +252,7 @@
 					this.getData()
 				}
 			}
-			
+			window.scrollTo(0, 0);
 			
 		},
 		methods: {
@@ -273,9 +281,13 @@
 						email: this.email,
 						no_handphone: this.noHp,
 						catatan: this.catatan,
-						nama_penerima: this.namaPenerima
+						nama_penerima: this.namaPenerima,
+						upload_bukti: null,
+						verified: false
 
 					}
+
+					console.log('YANG DIKIRIM', dataPembeli)
 
 					App.methods.postData(this.urlPostPembayaran + idUser, dataPembeli, function(res){
 						if(res.status == 200){
@@ -288,6 +300,7 @@
 							});
 						}else {
 							self.dialog = false;
+							alert('Pembelian Belum Berhasil. Silahkan Ulang kembali')
 						}
 					})
 

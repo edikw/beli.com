@@ -1,6 +1,6 @@
 <template>
 	<v-app>
-		<v-toolbar height="80" color="light">
+		<v-toolbar height="80" color="light" v-on:click="exit" v-if="$route.name != 'pembelian' && $route.name != 'pembayaran'">
 			<v-layout class="mt-0">
 				<v-flex xs6 sm3 md2 lg2 class="d-inline-flex">
 					<v-toolbar-side-icon class="hidden-md-and-up" @click.stop="drawer = !drawer">
@@ -22,7 +22,7 @@
 					<v-menu offset-y open-on-hover >
 						<v-list-tile slot="activator">
 							<v-icon class="mr-2">menu</v-icon>
-							Category
+							Kategori
 						</v-list-tile>
 						<v-list>
 							<v-list-tile
@@ -42,32 +42,8 @@
 							color="teal darken-4"
 							v-model="search"
 							@click:append="searching"
-							v-on:keyup="searching"
 							@keypress.13.prevent="searching"
 						></v-text-field>
-						<div v-if="dataResultSearch.length > 0" class="searchResult">
-							<p style="font-size: 12px;" class="ma-0">{{dataResultSearch.length}} hasil dari ' {{search}} '</p>
-							<v-list two-line v-bind:class="[search ? 'd-block' : 'd-none']" light class="pa-0">
-								<div class="text-xs-right">
-									<v-icon class="px-2" v-on:click="exit" small color="teal">close</v-icon>
-								</div>
-								<div v-for="(item, index) in dataResultSearch" :key="index">
-									<v-list-tile
-									color="teal"
-									>
-										<v-list-tile-avatar>
-											<img :src="item.thumbnail">
-										</v-list-tile-avatar>
-
-										<v-list-tile-content>
-											<v-list-tile-title v-html="item.nama_barang"></v-list-tile-title>
-											<v-list-tile-sub-title v-html="item.price"></v-list-tile-sub-title>
-										</v-list-tile-content>
-									</v-list-tile>
-								<v-divider></v-divider>
-								</div>
-							</v-list>
-						</div>
 					</v-flex>
 					<v-flex lg1 d-inline-flex align-center>
 						<div class="text-xs-right text-sm-center text-md-right">
@@ -266,8 +242,9 @@
 							<div class="text-center py-4 logo">
 								<h1>Beli.com</h1>
 							</div>
-							<v-card-title class="py-0 px-0" style="justify-content: center;">
-								<span class="headline text-center">Daftar</span>
+							<v-card-title class="py-0 px-0 text-lg-center" style="justify-content: center;">
+								<span class="headline text-center">Daftar</span><br>
+								<span class="px-4" style="color: red; text-align: center;" v-if="daftarGagal">Email yang Anda masukkan sudah ada. Silahkan ganti email anda</span>
 							</v-card-title>
 							<v-card-text>
 								<v-container grid-list py-0>
@@ -313,6 +290,20 @@
 				</v-layout>
 			</v-layout>
 		</v-toolbar>
+		<v-flex class="hidden-sm-and-up px-3 pt-2" v-if="$route.name == 'home' || $route.name == 'search'">
+			<v-flex d-flex justify-center xs12>
+				<v-text-field
+					solo
+					label="Search"
+					append-icon="search"
+					color="teal darken-4"
+					background-color="teal lighten-3"
+					v-model="search"
+					@click:append="searching"
+					@keypress.13.prevent="searching"
+				></v-text-field>
+			</v-flex>
+		</v-flex>
 			<v-navigation-drawer
 				v-model="drawer"
 				:mini-variant="mini"
@@ -346,14 +337,16 @@
 						</v-btn>
 					</v-list-tile>
 				</v-list>
-				<v-flex d-inline-flex v-if="avatarLogin" class="py-3">
+				<v-list v-if="avatarLogin" class="pa-0" v-show="!mini && showlogin">
+					<v-flex d-inline-flex class="py-3">
 						<div class="px-3">
 							<p class="ma-0" style="color: #fff; font-weight: bold;">Hai</p>
 						</div>
 						<div v-for="(name, i) in dataUser" :key="i">
 							<p class="ma-0" style="color: #80cbc4; font-weight: bold;">{{name.username}}</p>
 						</div>
-				</v-flex>
+					</v-flex>
+				</v-list>
 				<v-list class="pt-0" dense  v-if="avatarLogin">
 				<v-divider light></v-divider>
 					<v-list-tile
@@ -476,42 +469,51 @@
 				</v-btn>
 			</v-bottom-nav>
 		</v-card>
-		<v-footer
-			height="auto"
-			color="grey darken-4"
-			class="hidden-sm-and-down"
-		>
-			<v-layout
-				justify-center
-				row
-				wrap
-			>
-				<v-btn
-					v-for="link in links"
-					:key="link"
-					color="white"
-					flat
-					round
-				>
-				{{ link }}
-				</v-btn>
-				<v-flex
-					py-3
-					text-xs-center
-					white--text
-					xs12
-				>
-					&copy;2019 | <p class="d-inline-block">Edi kurniawan wibowo</p>
-				</v-flex>
-			</v-layout>
-		</v-footer>
+		<v-container fluid class="pa-0 ma-0 hidden-sm-and-down" d-flex grid-list-md>
+			<v-footer
+				height="auto"
+				color="grey darken-4">
+				<v-layout class="py-3 ma-0" row wrap>
+					<v-flex md3 lg3 text-lg-center text-md-center>
+						<div class="pa-5">
+							<h1 style="color: teal">Beli.com</h1>
+						</div>
+					</v-flex>
+					<v-flex md2 lg2>
+						<h5 class="title-footer">About Us</h5>
+						<p class="title-footer-sub">privacy policy</p>
+						<p class="title-footer-sub">Term</p>
+						<p class="title-footer-sub">Ketentuan Pengguna</p>
+
+					</v-flex>
+					<v-flex md lg2 class="text-md-center">
+						<h5 class="title-footer">Kategori</h5>
+						<p class="title-footer-sub" v-for="(kategory, i) in category" :key="i">{{kategory.title}}</p>
+					</v-flex>
+					<v-flex md2 lg2>
+						<h5 class="title-footer">connect with us</h5>
+							<v-flex v-for="(img, i) in connect" d-inline-flex md2 lg2 :key="i">
+								<v-img :src="img.image" width="50" class="ma-auto" />
+							</v-flex>
+
+					</v-flex>
+					<v-flex lg2>
+						<h5 class="title-footer">payment</h5>
+						<v-flex v-for="(img ,i) in bank" d-inline-flex lg4 :key="i">
+							<v-img :src="img.image" width="50" class="ma-auto" />
+						</v-flex>
+					</v-flex>
+				</v-layout>
+			</v-footer>
+		</v-container>
 	</v-app>
 </template>
 
 <script>
 	import axios from 'axios'
 
-	const urlApi = 'http://192.168.2.230:3000/'
+	// const urlApi = 'http://192.168.2.230:3000/'
+	const urlApi = 'https://backend-beli.herokuapp.com/'
 
 	const url ={
 		urlRegister : urlApi + 'register',
@@ -522,6 +524,7 @@
 		urlProductId: urlApi + 'product/',
 		urlCartId: urlApi + 'user/chart/',
 		urlGetCartId: urlApi + 'chart/user/',
+		urlDeleteCartId: urlApi + 'chart/user/',
 		urlPostPembayaran: urlApi + 'user/transaksi/',
 		urlGetIdTransaksi: urlApi + 'transaksi/',
 		urlgetUserTransaksiId: urlApi + 'user/transaksi/',
@@ -556,6 +559,17 @@
 						{title: 'Menggonggong'},
 						{title: 'Mencangkul'},
 				],
+				connect: [
+					{image: require('./assets/facebook.png')},
+					{image: require('./assets/instagram.png')},
+					{image: require('./assets/twitter.png')},
+					{image: require('./assets/google-plus.png')}
+				],
+				bank:[
+					{image: require('./assets/BRI.png')},
+					{image: require('./assets/mandiri.jpg')},
+					{image: require('./assets/bni.png')}
+				],
 				dialog: false,
 				dialogDaftar: false,
 				nameUser: '',
@@ -578,19 +592,14 @@
 					v => /.+@.+/.test(v) || 'E-mail must be valid'
 				],
 				show2: true,
-				links: [
-					'Home',
-					'About Us',
-					'Services',
-					'Contact Us'
-				],
 				logingIn: false,
 				mendaftar: false,
 				jumlahCart: [],
 				dataUser: [],
 				loginGagal: false,
 				search: '',
-				dataResultSearch: []
+				dataResultSearch: [],
+				daftarGagal: false
 			}
 		},
 		mounted(){
@@ -631,24 +640,18 @@
 		},
 		methods: {
 			searching(){
-				this.dataResultSearch = []
-
-				if(this.search.length >= 3 && this.search.length <=5){
-					var datasearch = {
-						search: this.search
+				if(this.search.length > 0){
+					if(this.$route.path != '/search/'){
+						this.$router.push({ name: "search", query: {keyword: this.search}});
+					}else {
+						this.$router.push({
+							query: {keyword: this.searching}
+						})
 					}
-
-					axios.post(this.url.urlSearch, datasearch).then(res =>{
-						if(res.status == 200){
-							this.dataResultSearch = res.data.result
-						}
-
-					})
 				}
 			},
 			exit(){
 				this.search = ''
-				this.dataResultSearch = []
 			},
 			pageAkun(){
 				var id = localStorage.getItem('id')
@@ -691,6 +694,7 @@
 			register(){
 				if(this.username !='' && this.email != '' && this.password != '') {
 					this.mendaftar = true;
+					this.daftarGagal = false;
 
 					var dataRegister = {
 						username: this.username,
@@ -703,12 +707,15 @@
 							this.mendaftar = false;
 							this.dialog = true;
 							this.dialogDaftar = false;
+							this.daftarGagal = false;
 							this.reset();
 						}else {
 							this.mendaftar = false;
+							this.daftarGagal = true;
 						}
 					}).catch(e => {
 						this.mendaftar = false;
+						this.daftarGagal = true;
 					})
 				}
 			},
@@ -812,7 +819,7 @@
 					callback(e);
 				});
 			},
-			delete(url, callback){
+			deleteData(url, data, callback){
 				var token = localStorage.getItem('token')
 				var params = {
 					headers: {
@@ -820,7 +827,7 @@
 						'x-access-token': token
 					}
 				}
-				axios.delete(url, params).then(res => {
+				axios.delete(url, data, params).then(res => {
 					callback(res)
 				}).catch(e => {
 					callback(e)
@@ -966,5 +973,18 @@
 	.logoSmall h1 {
 		margin: 0;
 		color: #fff;
+	}
+	.title-footer{
+		text-align: left;
+		color: #fff;
+		font-weight: normal;
+		font-size: 17px
+	}
+	.title-footer-sub{
+		text-align: left;
+		color: #fff;
+		font-size: 12px;
+		font-style: italic;
+		margin: 0px;
 	}
 </style>

@@ -1,9 +1,12 @@
 <template>
 	<v-container>
-		<div class="pb-5">
+		<div class="pb-3">
 			<h2>Keranjang Belanja</h2>
 			<h5 style="font-weight: normal;" v-if="dataCart.length >0" >Anda Memiliki {{dataCart.length}} Barang Belanja yang Belum di bayar</h5>
 			<h5 v-else style="font-weight: normal;">Keranjang Belanja Anda Kosong yuk cari Barang mu dan temukan potongan harga yang menarik</h5>
+			<div class="py-1">
+				<v-divider></v-divider>
+			</div>
 		</div>
 		<v-container class="py-2 px-0" d-flex grid-list-md>
 			<v-layout row wrap>
@@ -28,13 +31,12 @@
 						</v-card-title>
 							<div class="pa-2 text-xs-right text-lg-right d-flex">
 								<v-btn outline small dark @click="bayar(item)" color="teal">Beli</v-btn>
-								<v-icon color="teal">delete</v-icon>
+								<v-icon color="teal" @click="hapus(item)">delete</v-icon>
 							</div>
 					</v-card>
 				</v-flex>
 			</v-layout>
 		</v-container>
-		<v-divider></v-divider>
 	</v-container>
 </template>
 
@@ -45,6 +47,7 @@
 		data(){
 			return {
 				urlGetCartId: App.data().url.urlGetCartId,
+				urlDeleteCartId: App.data().url.urlDeleteCartId,
 				dataCart: []
 			}
 		},
@@ -70,6 +73,21 @@
 						params: {name: e.id}
 					});
 				}
+			},
+			hapus(e){
+				var self = this;
+				var idUser = localStorage.getItem('id')
+				var dataBarang = {
+					id_barang: e.id
+				}
+
+				App.methods.updateData(this.urlDeleteCartId + idUser, dataBarang, function(res){
+					if(res.status == 200){
+						console.log(res);
+						self.getCartId();
+					}
+				})
+
 			}
 		}
 	}

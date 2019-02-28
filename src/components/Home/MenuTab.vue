@@ -9,13 +9,14 @@
 					:centered="true">
 					<v-tab
 						ripple
+						v-if="product && product.length > 0"
 					>
 						Featured
 					</v-tab>
 					<v-tab-item
 						class="my-2"
-						color="transparent" >
-						<v-card flat v-if="product && product.length > 0">
+						color="transparent">
+						<v-card flat>
 							<carousel 
 								:per-page-custom="[[200, 1],[400, 2], [580, 3],[700,4], [900,5], [1265,6],[1439,6]]"  
 								:paginationEnabled="false" 
@@ -53,11 +54,12 @@
 
 					<v-tab
 						ripple
+						v-if="product && product.length > 0"
 					>Hot Sale
 					</v-tab>
 					<v-tab-item
 						color="transparent" class="my-2">
-						<v-card flat v-if="product && product.length > 0">
+						<v-card flat>
 							<carousel 
 								:per-page-custom="[[200, 1],[400, 2], [580, 3],[700,4], [900,5], [1265,6],[1439,6]]"  
 								:paginationEnabled="false" 
@@ -96,13 +98,14 @@
 					</v-tab-item>
 					<v-tab
 						ripple
+						v-if="product && product.length > 0"
 					>
 						Best Offers
 					</v-tab>
 					<v-tab-item
 						class="my-2"
 						color="transparent" >
-						<v-card flat v-if="product && product.length > 0">
+						<v-card flat>
 							<carousel 
 								:per-page-custom="[[200, 1],[400, 2], [580, 3],[700,4], [900,5], [1265,6],[1439,6]]"  
 								:paginationEnabled="false" 

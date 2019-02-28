@@ -12,7 +12,7 @@
               <v-flex xs12 flexbox class="d-block">
                 <span class="headline">Top 10 Australian beaches</span>
                 <div class="m-0">
-                  <v-btn outline color="teal" class="mx-0">View Colections</v-btn>
+                  <v-btn outline color="teal" class="mx-0" @click="view">View Colections</v-btn>
                 </div>
               </v-flex>
             </v-layout>
@@ -32,7 +32,7 @@
                   <v-flex xs12 flexbox class="d-block">
                     <span class="headline">Top 10 Australian beaches</span>
                     <div class="m-0">
-                      <v-btn outline color="teal" class="mx-0">View Colections</v-btn>
+                      <v-btn outline color="teal" class="mx-0" @click="view">View Colections</v-btn>
                     </div>
                   </v-flex>
                 </v-layout>
@@ -50,7 +50,7 @@
                   <v-flex xs12 flexbox class="d-block">
                     <span class="headline">Top 10 Australian beaches</span>
                     <div class="m-0">
-                      <v-btn outline color="teal" class="mx-0">View Colections</v-btn>
+                      <v-btn outline color="teal" class="mx-0" @click="view">View Colections</v-btn>
                     </div>
                   </v-flex>
                 </v-layout>
@@ -64,8 +64,21 @@
 </template>
 <script>
   export default {
-    data: () => ({
-      lorem: `Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem, explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.`
-    })
+    data(){
+      return {
+        keyword: 'wedang'
+      }
+    },
+    methods: {
+      view(){
+          if(this.$route.path != '/search/'){
+            this.$router.push({ name: "search", query: {keyword: this.keyword}});
+          }else {
+            this.$router.push({
+              query: {keyword: this.keyword}
+            })
+          }
+      }
+    }
   }
 </script>

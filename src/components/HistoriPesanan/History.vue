@@ -1,40 +1,46 @@
 <template>
 	<v-container>
-		<div class="pb-5">
+		<div class="pb-3">
 			<h2>Histori Pesanan Anda</h2>
-			<p style="font-weight: normal;">Anda Memiliki {{dataHistori.length}} Histori Pesanan </p>
+			<p style="font-weight: normal;" class="ma-0">Anda Memiliki {{dataHistori.length}} Histori Pesanan </p>
+			<div class="py-1">
+				<v-divider></v-divider>
+			</div>
 		</div>
-		<v-layout row wrap justify-start v-for="(data,i) in dataHistori" :key="i" class="pb-2">
-			<v-flex xs12 sm4 md6 lg2>
-				<v-card>
-					<v-img
-						class="white--text"
-						aspect-ratio="1.7"
-						:src="data.data.id_barang.barang.thumbnail"
-					>
-					</v-img>
-				</v-card>
-			</v-flex>
-			<v-flex xs12 sm5 lg10>
-				<div class="mx-4">
-					<div>
-						<p class="ma-0">{{data.data.id_barang.barang.nama_barang}}</p>
-						<v-divider></v-divider>
-					</div>
+		<v-container class="py-2 px-0" d-flex grid-list-md>
+			<v-layout row wrap>
+				<v-flex
+					v-for="(item, i) in dataHistori" :key="i"
+					xs6 sm3 lg2 class="pa-0">
+					<v-card class="ma-1" max-width="185">
+						<v-img
+							:src="item.data.id_barang.barang.thumbnail"
+							aspect-ratio="1.7"
+							contain
+							style="cursor: pointer;"
+						></v-img>
+						<v-card-title class="text-xs-left">
+							<v-list-tile-sub-title v-html="item.data.id_barang.barang.nama_barang"></v-list-tile-sub-title>
+							<v-list-tile-sub-title v-html="item.data.id_barang.barang.price"></v-list-tile-sub-title>
+							<div v-if="item.data.verified == false">
+								<p class="ma-0" style="color: red; font-size: 11px;">MENUNGGU PEMBAYARAN</p>
+							</div>
+							<div v-if="item.data.verified == true">
+								<p class="ma-0" style="color: teal; font-size: 11px;">Pembayaran Diterima</p>
+							</div>
+						</v-card-title>
+							<div class="pa-2 text-xs-right text-lg-right d-flex" v-if="item.data.verified == false">
+								<v-btn outline small color="teal" dark @click="sudahBayar">bayar</v-btn>
+								<v-icon color="teal" @click="detail(item)">list</v-icon>
+							</div>
+							<div class="pa-2 text-lg-right text-xs-right" v-else>
+							    <v-icon color="teal">check_circle</v-icon>
+							</div>
+					</v-card>
+				</v-flex>
+			</v-layout>
+		</v-container>
 
-					<div>
-						<p class="ma-0">{{data.data.id_barang.barang.price}}</p>
-					</div>
-					<div v-if="data.data.verified == false">
-						<p class="ma-0" style="color: red">MENUNGGU PEMBAYARAN</p>
-					</div>
-					<div>
-						<v-btn small color="teal" dark @click="sudahBayar">sudah bayar</v-btn>
-						<v-btn outline small color="teal" dark @click="detail(data)">detail</v-btn>
-					</div>
-				</div>
-			</v-flex>
-		</v-layout>
 		<template>
 			<div class="text-xs-center">
 				<v-dialog

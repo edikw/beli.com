@@ -8,6 +8,7 @@ import Pembayaran from './views/Pembayaran.vue'
 import Pembelian from './views/Pembelian.vue'
 import Profile from './views/Profile.vue'
 import History from './views/History.vue'
+import Search from './views/Search.vue'
  
 Vue.use(Router)
 
@@ -84,6 +85,14 @@ const router =  new Router({
       component: History,
       meta: {
         title: sitetitle('Histori')
+      }
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: Search,
+      meta: {
+        title: sitetitle('Search')
       }
     }
   ]

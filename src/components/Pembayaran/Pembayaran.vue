@@ -1,7 +1,16 @@
 <template>
+	<v-container fluid class="pa-0">
+		<v-flex xs12>
+			<v-toolbar color="teal" dark height="60">
+			 	<v-icon @click="$router.go(-1)">arrow_back</v-icon>
+			 	<div class="px-3">
+					<h3>Pembayaran</h3>
+			 	</div>
+			</v-toolbar>
+		</v-flex>
 	<v-container>
-		<h3>Pembayaran</h3>
-			<v-flex d-flex class="py-4">
+		<p>* Silahkan Upload Bukti transfer anda</p>
+			<v-flex d-flex class="">
 				<v-flex xs12 md7 lg7>
 					<v-card>
 						<div class="pa-3" style="background-color: #eee;">
@@ -130,6 +139,7 @@
 			</div>
 		</template>
 	</v-container>
+	</v-container>
 </template>
 
 <script>
@@ -153,7 +163,7 @@
 			if(this.id_transaksi){
 				this.getDataTransaksi();
 			}
-			
+			window.scrollTo(0, 0);
 		},
 		methods: {
 			sudahBayar(){
@@ -179,7 +189,6 @@
 				document.getElementById("workIMG").click()
 			},
 			onFilePicked(event) {
-				var self = this
 				const image = event.target.files[0];
 				console.log(event)
 
