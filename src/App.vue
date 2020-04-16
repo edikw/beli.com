@@ -511,8 +511,7 @@
 
 <script>
 	import axios from 'axios'
-	const urlApi = 'http://localhost:3000/'
-	// const urlApi = 'https://backend-beli.herokuapp.com/'
+	const urlApi = 'https://backend-beli.herokuapp.com/'
 
 	const url ={
 		urlRegister : urlApi + 'register',
