@@ -105,7 +105,6 @@
 
 				App.methods.getData(this.urlgetUserTransaksiId + idUser, function(res){
 					if(res.status == 200){
-						console.log(res.data.result)
 						self.dataHistori = res.data.result;
 					}
 				})
@@ -122,8 +121,7 @@
 			openUpload() {
 				document.getElementById("workIMG").click()
 			},
-			onFilePicked(event) {
-				console.log(event)
+			onFilePicked() {
 
 				// let data = new FormData();
 				// data.append('images', image);
