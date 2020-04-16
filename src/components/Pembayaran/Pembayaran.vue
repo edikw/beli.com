@@ -2,10 +2,10 @@
 	<v-container fluid class="pa-0">
 		<v-flex xs12>
 			<v-toolbar color="teal" dark height="60">
-			 	<v-icon @click="$router.go(-1)">arrow_back</v-icon>
-			 	<div class="px-3">
+				<v-icon @click="$router.go(-1)">arrow_back</v-icon>
+				<div class="px-3">
 					<h3>Pembayaran</h3>
-			 	</div>
+				</div>
 			</v-toolbar>
 		</v-flex>
 	<v-container>
@@ -188,9 +188,7 @@
 			openUpload() {
 				document.getElementById("workIMG").click()
 			},
-			onFilePicked(event) {
-				const image = event.target.files[0];
-				console.log(event)
+			onFilePicked() {
 
 				// let data = new FormData();
 				// data.append('images', image);

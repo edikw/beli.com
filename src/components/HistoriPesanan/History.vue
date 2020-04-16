@@ -34,7 +34,7 @@
 								<v-icon color="teal" @click="detail(item)">list</v-icon>
 							</div>
 							<div class="pa-2 text-lg-right text-xs-right" v-else>
-							    <v-icon color="teal">check_circle</v-icon>
+								<v-icon color="teal">check_circle</v-icon>
 							</div>
 					</v-card>
 				</v-flex>
@@ -113,7 +113,6 @@
 			detail(e){
 				var id_transaksi = e.id_transaksi;
 				var id_barang = e.data.id_barang.id_barang;
-				console.log(id_barang, id_transaksi)
 				this.$router.push({
 					name: 'pembayaran',
 					path: '/pembayaran/',

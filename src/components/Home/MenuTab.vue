@@ -292,6 +292,9 @@
 				</v-tabs>
 			</v-flex>
 		</v-layout>
+		<v-snackbar v-model="snackbar" :top="true" color="teal">
+			{{ text_snackbar }}
+		</v-snackbar>
 	</v-container>
 </template>
 <script>
@@ -306,6 +309,8 @@
 			return {
 				product: null,
 				urlAddChart: App.data().url.urlCartId,
+				snackbar: false,
+				text_snackbar: null
 			}
 		},
 		mounted(){
@@ -329,16 +334,15 @@
 				if(!localStorage.getItem('token')){
 					this.$root.$emit('addCartShow', e)
 				}else {
-
 					App.methods.postData(this.urlAddChart + idUser, dataBarang, function(res){
 						if(res.status == 200){
-							alert('Menambahkan Ke Keranjang Belanja')
+							self.snackbar = true
+							self.text_snackbar = "Barang berhasil dimasukkan"
 							self.$root.$emit('addCart', res)
-							
 						}else {
-							alert('Barang Yang anda pilih sudah tersedia di Keranjang')
+							self.snackbar = true
+							self.text_snackbar = "Barang yang anda pilih sudah ada di keranjang"
 						}
-
 					});
 				}
 			},

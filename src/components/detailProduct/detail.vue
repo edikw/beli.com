@@ -52,6 +52,9 @@
 				</div>
 			</v-flex>
 		</v-layout>
+		<v-snackbar v-model="snackbar" :top="true" color="teal">
+			{{ text_snackbar }}
+		</v-snackbar>
 		<v-divider></v-divider>
 	</v-container>
 </template>
@@ -65,7 +68,9 @@
 				data: null,
 				urlProductId: App.data().url.urlProductId,
 				dataProduct: [],
-				urlAddChart: App.data().url.urlCartId
+				urlAddChart: App.data().url.urlCartId,
+				snackbar: false,
+				text_snackbar: null
 			}
 		},
 		mounted(){
@@ -75,7 +80,6 @@
 		},
 		methods: {
 			buy(e){
-				console.log(e)
 				if(localStorage.getItem('token')){
 					this.$router.push({
 						name:'pembelian',
@@ -110,10 +114,12 @@
 				}else {
 					App.methods.postData(this.urlAddChart + idUser, dataBarang, function(res){
 						if(res.status == 200){
-							alert('Menambahkan Ke Keranjang Belanja')
+							self.snackbar = true
+							self.text_snackbar = "Barang berhasil dimasukkan"
 							self.$root.$emit('addCart', res)
 						}else {
-							alert('Barang sudah ada di Keranjang yuk lanjutkan untuk pembelian')
+							self.snackbar = true
+							self.text_snackbar = "Barang yang anda pilih sudah ada di keranjang"
 						}
 
 					});

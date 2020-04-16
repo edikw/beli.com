@@ -36,7 +36,7 @@
 					</div>
 					<v-flex v-for="(data, i) in dataResultSearch" 
 						:key="i" 
-						 xs6 sm3 lg2>
+						xs6 sm3 lg2>
 						<v-card max-width="185">
 							<v-img
 								:src="data.data.thumbnail"
@@ -56,6 +56,9 @@
 					</v-flex>
 				</v-layout>
 		</v-container>
+		<v-snackbar v-model="snackbar" :top="true" color="teal">
+			{{ text_snackbar }}
+		</v-snackbar>
 	</v-container>
 </template>
 
@@ -68,15 +71,17 @@
 				dataResultSearch: [],
 				search: '',
 				category: [
-					{title: 'Memancing'},
-					{title: 'Memasak'},
-					{title: 'Menjahit'},
-					{title: 'Melamun'},
-					{title: 'Menggonggong'},
-					{title: 'Mencangkul'},
+					{title: 'DummyMenu1'},
+					{title: 'DummyMenu2'},
+					{title: 'DummyMenu3'},
+					{title: 'DummyMenu4'},
+					{title: 'DummyMenu5'},
+					{title: 'DummyMenu6'},
 				],
 				tersedia: false,
 				urlAddChart: App.data().url.urlCartId,
+				snackbar: false,
+				text_snackbar: null
 			}
 		},
 		mounted(){
@@ -96,7 +101,6 @@
 					if(res.status == 200){
 						self.tersedia = false;
 						self.dataResultSearch = res.data.result
-						console.log("RESULT", self.dataResultSearch)
 					}else{
 						self.tersedia = true;
 					}
@@ -121,14 +125,15 @@
 				}
 				if(!localStorage.getItem('token')){
 					this.$root.$emit('addCartShowPopular', e)
-					console.log('EMIT', e)
 				}else {
 					App.methods.postData(this.urlAddChart + idUser, dataBarang, function(res){
 						if(res.status == 200){
-							alert('Menambahkan Ke Keranjang Belanja')
+							self.snackbar = true
+							self.text_snackbar = "Barang berhasil dimasukkan"
 							self.$root.$emit('addCart', res)
 						}else {
-							alert('Barang yang anda pilih sudah tersedia di Keranjang')
+							self.snackbar = true
+							self.text_snackbar = "Barang yang anda pilih sudah ada di keranjang"
 						}
 
 					});

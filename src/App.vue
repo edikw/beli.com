@@ -511,9 +511,8 @@
 
 <script>
 	import axios from 'axios'
-
-	// const urlApi = 'http://192.168.2.230:3000/'
-	const urlApi = 'https://backend-beli.herokuapp.com/'
+	const urlApi = 'http://localhost:3000/'
+	// const urlApi = 'https://backend-beli.herokuapp.com/'
 
 	const url ={
 		urlRegister : urlApi + 'register',
@@ -552,12 +551,12 @@
 				mini: false,
 				right: null,
 				category: [
-						{title: 'Memancing'},
-						{title: 'Memasak'},
-						{title: 'Menjahit'},
-						{title: 'Melamun'},
-						{title: 'Menggonggong'},
-						{title: 'Mencangkul'},
+						{title: 'Dummy Menu1'},
+						{title: 'Dummy Menu2'},
+						{title: 'Dummy Menu3'},
+						{title: 'Dummy Menu4'},
+						{title: 'Dummy Menu5'},
+						{title: 'Dummy Menu6'},
 				],
 				connect: [
 					{image: require('./assets/facebook.png')},
@@ -604,24 +603,23 @@
 		},
 		mounted(){
 			var self = this;
-
 			if(localStorage.getItem('token')){
 				this.avatarLogin = true;
 				this.getDataUserId()
 			}
 			
-			this.$root.$on('addCartShow', function(a){
+			this.$root.$on('addCartShow', function(){
 				if(self.dialog == false){
 					self.dialog = true;
 				}
 			});
-			this.$root.$on('addCartShowPopular', function(a){
+			this.$root.$on('addCartShowPopular', function(){
 				if(self.dialog == false){
 					self.dialog = true;
 				}
 			});
 
-			this.$root.$on('addCart', function(a){
+			this.$root.$on('addCart', function(){
 				if(localStorage.getItem('token')){
 					self.getDataUserId();
 				}
@@ -713,7 +711,7 @@
 							this.mendaftar = false;
 							this.daftarGagal = true;
 						}
-					}).catch(e => {
+					}).catch(() => {
 						this.mendaftar = false;
 						this.daftarGagal = true;
 					})
@@ -739,7 +737,7 @@
 							this.logingIn = false;
 							this.loginGagal = true;
 						}
-					}).catch(e => {
+					}).catch(() => {
 						this.logingIn = false;
 						this.loginGagal = true;
 					})

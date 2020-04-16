@@ -37,6 +37,9 @@
 				</v-flex>
 			</v-layout>
 		</v-container>
+		<v-snackbar v-model="snackbar" :top="true" color="teal">
+			{{ text_snackbar }}
+		</v-snackbar>
 	</v-container>
 </template>
 
@@ -48,7 +51,9 @@
 			return {
 				urlGetCartId: App.data().url.urlGetCartId,
 				urlDeleteCartId: App.data().url.urlDeleteCartId,
-				dataCart: []
+				dataCart: [],
+				snackbar: false,
+				text_snackbar: null
 			}
 		},
 		mounted(){
@@ -83,8 +88,12 @@
 
 				App.methods.updateData(this.urlDeleteCartId + idUser, dataBarang, function(res){
 					if(res.status == 200){
-						console.log(res);
+						self.snackbar = true
+						self.text_snackbar = "Barang berhasil dihapus"
 						self.getCartId();
+					}else {
+						self.snackbar = true
+						self.text_snackbar = "Gagal"
 					}
 				})
 

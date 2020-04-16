@@ -72,13 +72,14 @@
 			}
 		},
 		methods: {
-			getUserId(){
+			async getUserId (){
 				var self = this;
 				var idUser = localStorage.getItem('id');
 
-				App.methods.getData(this.urlUserId + idUser, function(res){
+				await App.methods.getData(this.urlUserId + idUser, function(res){
 					if (res.status ==200){
 						self.dataUser = res.data.result
+						self.dataUser.password = res.data.password
 					}
 				})
 			},
@@ -100,7 +101,6 @@
 						self.alertEmail = false;
 						self.prosesSimpan = false;
 						self.$refs.email.style.border = '1px solid #ddd'
-						console.log(res);
 						self.getUserId();
 					}else {
 						self.prosesSimpan = false
@@ -115,7 +115,7 @@
 </script>
 
 <style scoped>
-	input[type=text],input[type=email],input[type=password], select {
+input[type=text],input[type=email],input[type=password], select {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;

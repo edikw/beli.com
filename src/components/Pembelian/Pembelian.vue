@@ -216,6 +216,9 @@
 			</v-card>
 		</v-dialog>
 	</v-container>
+	<v-snackbar v-model="snackbar" :top="true" color="teal">
+		{{ text_snackbar }}
+	</v-snackbar>
 	</v-container>
 </template>
 <script>
@@ -242,7 +245,9 @@
 					v => !!v || 'Field must not be empty'
 				],
 				kurir: '',
-				dialog: false
+				dialog: false,
+				snackbar: false,
+				text_snackbar: null
 			}
 		},
 		mounted(){
@@ -287,8 +292,6 @@
 
 					}
 
-					console.log('YANG DIKIRIM', dataPembeli)
-
 					App.methods.postData(this.urlPostPembayaran + idUser, dataPembeli, function(res){
 						if(res.status == 200){
 							var id_transaksi = res.data.id_transaksi
@@ -300,13 +303,13 @@
 							});
 						}else {
 							self.dialog = false;
-							alert('Pembelian Belum Berhasil. Silahkan Ulang kembali')
+							self.snackbar = true;
+							self.text_snackbar = "Pembelian Belum Berhasil. Silahkan Ulang kembali";
 						}
-					})
-
-
+					});
 				}else {
-					alert('Pastikan kamu sudah mengisi data dengan benar')
+					self.snackbar = true;
+					self.text_snackbar = "Pastikan kamu sudah mengisi data dengan benar"
 					this.dialog = false;
 				}
 			},

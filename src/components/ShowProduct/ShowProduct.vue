@@ -53,6 +53,9 @@
 					</v-flex>
 				</v-layout>
 		</v-container>
+		<v-snackbar v-model="snackbar" :top="true" color="teal">
+			{{ text_snackbar }}
+		</v-snackbar>
 	</v-container>
 </template>
 <script>
@@ -63,14 +66,16 @@
 			return {
 				product: null,
 				category: [
-					{title: 'Memancing'},
-					{title: 'Memasak'},
-					{title: 'Menjahit'},
-					{title: 'Melamun'},
-					{title: 'Menggonggong'},
-					{title: 'Mencangkul'},
+					{title: 'DummyMenu1'},
+					{title: 'DummyMenu2'},
+					{title: 'DummyMenu3'},
+					{title: 'DummyMenu4'},
+					{title: 'DummyMenu5'},
+					{title: 'DummyMenu6'},
 				],
-				urlAddChart: App.data().url.urlCartId
+				urlAddChart: App.data().url.urlCartId,
+				snackbar: false,
+				text_snackbar: null
 			}
 		},
 		mounted(){
@@ -91,13 +96,13 @@
 
 					App.methods.postData(this.urlAddChart + idUser, dataBarang, function(res){
 						if(res.status == 200){
-							alert('Menambahkan Ke Keranjang Belanja')
+							self.snackbar = true
+							self.text_snackbar = "Barang berhasil dimasukkan"
 							self.$root.$emit('addCart', res)
-							
 						}else {
-							alert('Barang Yang anda pilih sudah tersedia di Keranjang')
+							self.snackbar = true
+							self.text_snackbar = "Barang yang anda pilih sudah ada di keranjang"
 						}
-
 					});
 				}
 			},

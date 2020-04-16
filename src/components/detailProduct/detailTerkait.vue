@@ -80,6 +80,9 @@
 				</v-container>
 			</v-flex>
 		</v-layout>
+		<v-snackbar v-model="snackbar" :top="true" color="teal">
+			{{ text_snackbar }}
+		</v-snackbar>
 	</v-container>
 </template>
 <script>
@@ -93,7 +96,9 @@ export default {
 	data() {
 		return {
 			product: [],
-			urlAddChart: App.data().url.urlAddChart
+			urlAddChart: App.data().url.urlAddChart,
+			snackbar: false,
+			text_snackbar: null
 		}
 	},
 	mounted(){
@@ -121,22 +126,19 @@ export default {
 					id_barang : e.id
 				}
 
-				console.log('yang dikirm', dataBarang)
-
 			if(!localStorage.getItem('token')){
 				this.$root.$emit('addCartShowPopular', e)
-				console.log('EMIT', e)
 			}else {
 				App.methods.postData(this.urlAddChart + idUser, dataBarang, function(res){
-						if(res.status == 200){
-							alert('Menambahkan Ke Keranjang Belanja')
-							self.$root.$emit('addCart', res)
-							
-						}else {
-							alert('Barang Yang anda pilih sudah tersedia di Keranjang')
-						}
-
-					});
+					if(res.status == 200){
+						self.snackbar = true
+						self.text_snackbar = "Barang berhasil dimasukkan"
+						self.$root.$emit('addCart', res)
+					}else {
+						self.snackbar = true
+						self.text_snackbar = "Barang yang anda pilih sudah ada di keranjang"
+					}
+				});
 			}
 		}
 	}
